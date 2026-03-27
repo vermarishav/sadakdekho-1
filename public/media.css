@@ -1,0 +1,46 @@
+@media only screen and (min-width: 200px) and (max-width:575px){
+
+    .header{
+        width: 100%;
+    }
+   .container{
+    margin-left: 0;
+    margin-right: 0;
+   }
+    .logo{
+        flex-grow: 1;
+    }
+    .menubutton{
+        display: block;
+        align-items: center;
+        display: flex;
+    }
+    .locationtext{
+        display: none;
+    }
+    .logintext{
+        display: none;
+    }
+    .f{
+        font-size: 20px;
+    }
+    .s{
+        font-size: 20px;
+    }
+    .t{
+        font-size: 10px;
+          padding-bottom: 0;
+         margin-bottom: 2px;
+    }
+    .search-bar{
+        display: none;
+
+    }
+
+}
+
+    @media only screen and (min-width: 575px) and (max-width:2000px){
+        .msearch-bar{
+            display: none;
+        }
+    }

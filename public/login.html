@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SadakDekho Login</title>
+  <link rel="stylesheet" href="loginstyle.css">
+</head>
+<body>
+<div class="loginbox">
+  <div class="logintext"><span><b>Login</b></span></div>
+
+  <div class="formbox">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+  </div>
+
+  <div class="forget">
+<a href="forgot.html">Forgot password?</a>
+  </div>
+  <div class="loginbtn">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="signupgo">
+    <span>Don't have an account?</span>
+    <a href="signup.html">Signup</a>
+  </div>
+</div>
+
+<script>
+  async function checkAlreadyLoggedIn() {
+  try {
+    const res = await fetch("/profile", { credentials: "include" });
+    const data = await res.json();
+    if(data.success){
+      // user is already logged in → redirect to home
+      window.location.href = "index.html";
+    }
+  } catch {
+    // not logged in → do nothing
+  }
+}
+
+// Run check on page load
+checkAlreadyLoggedIn();
+
+async function checkLogin() {
+  try {
+    const res = await fetch("/profile", { credentials: "include" });
+    const data = await res.json();
+    if (data.success) window.location.href = "index.html";
+  } catch (err) { console.log("Not logged in"); }
+}
+checkLogin();
+
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  if (!email || !password) return alert("Please enter email and password");
+
+  const button = document.querySelector(".loginbtn button");
+  button.disabled = true;
+
+  try {
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+    if (data.success) window.location.href = "index.html";
+    else alert(data.message || "Login failed!");
+  } catch (err) {
+    console.error(err);
+    alert("Server error");
+  } finally { button.disabled = false; }
+}
+</script>
+</body>
+</html>

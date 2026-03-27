@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SadakDekho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="media.css">
+
+    <style>
+    /* ── PAGE LOADER ─────────────────────────── */
+    #pageLoader {
+      position: fixed; inset: 0;
+      background: #fff;
+      display: none; /* hidden by default */
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 9999;
+      transition: opacity .4s;
+    }
+    #pageLoader .spin {
+      width: 50px; height: 50px;
+      border: 4px solid #e8f1ff;
+      border-top: 4px solid #1f80ff;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+    }
+    #pageLoader p {
+      margin-top: 16px;
+      font-size: 14px; font-weight: 600;
+      color: #1f80ff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<!-- ── FULL PAGE LOADER ───────────────────── -->
+<div id="pageLoader">
+  <div class="spin"></div>
+  <p>Finding your route...</p>
+</div>
+
+<!-- Sidebar Menu -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span>SadakDekho</span>
+    <button onclick="closeMenu()">✕</button>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact / Support</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms & Conditions</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</div>
+
+<header class="header">
+  <div class="container">
+    <div class="menubutton">
+      <button onclick="openMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <div class="logo">
+      <div class="logo-name">
+        <span class="f">Sadak</span>
+        <span class="s">Dekho</span>
+        <span class="t">.com</span>
+      </div>
+    </div>
+    <div class="search-bar">
+      <input type="search" id="search" placeholder="Search your location....">
+      <i class="fa-solid fa-magnifying-glass" style="border:1px solid rgba(36,39,44,.3);height:42px;align-items:center;display:flex;box-shadow:2px 2px 2px rgba(0,0,0,0.3);width:35px;justify-content:center;background-color:#1f80ff;color:white;border-radius:0 20px 20px 0;" ></i>
+    </div>
+    <div class="login-bar">
+      <div class="user-location"  onclick="window.location.href='pinlocation.html'">
+        <i class="fa-solid fa-location-crosshairs" style="font-size:25px;color:#545454;"></i>
+        <span class="locationtext">Current location</span>
+      </div>
+      <div class="username" onclick="toggleProfileMenu()">
+        <i class="fa-solid fa-circle-user" style="font-size:25px;color:#545454;"></i>
+        <span class="logintext" id="profileText">Login / Register</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Profile Dropdown -->
+<div class="profile-menu" id="profileMenu">
+  <ul id="profileMenuList"></ul>
+</div>
+
+<div class="main">
+  <div class="msearch-bar">
+    <input type="search" id="msearch" placeholder="Search your location....">
+    <span class="searchclear-btn" onclick="clearInput('msearch')">×</span>
+    <div class="suggestion-box" id="suggestions-search"></div>
+    <i class="fa-solid fa-magnifying-glass" onclick="searchSingleLocation('msearch')"></i>
+  </div>
+
+  <div class="videonav">
+    <div class="from-to-bar">
+      <div class="frombar">
+        <i class="fa-solid fa-location-dot" style="font-size:20px;background-color:whitesmoke;color:#1f80ff;border-radius:20px 0 0 20px;height:45px;display:flex;border:1px solid rgba(36,39,44,.3);padding:5px;align-items:center;"></i>
+        <div class="input-wrapper">
+          <input id="fromInput" type="text" placeholder="From your starting location....">
+          <span class="clear-btn" onclick="clearInput('fromInput')">×</span>
+          <div class="suggestion-box" id="suggestions-from"></div>
+        </div>
+      </div>
+
+      <div class="swapbutton">
+        <button type="button" onclick="swapLocations()">
+          <i class="fa-solid fa-right-left"></i>
+        </button>
+      </div>
+
+      <div class="tobar">
+        <i class="fa-solid fa-location-dot" style="font-size:20px;background-color:whitesmoke;color:#1f80ff;border-radius:20px 0 0 20px;height:45px;display:flex;border:1px solid rgba(36,39,44,.3);padding:5px;align-items:center;"></i>
+        <div class="input-wrapper">
+          <input id="toInput" type="text" placeholder="To your destination location....">
+          <span class="clear-btn" onclick="clearInput('toInput')">×</span>
+          <div class="suggestion-box" id="suggestions-to"></div>
+        </div>
+      </div>
+
+      <div class="search-button">
+        <button onclick="searchRoute()">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+// ── SUGGESTIONS ───────────────────────────────────────────────────────────────
+function setupSuggestions(inputId, boxId) {
+  const input = document.getElementById(inputId);
+  const box = document.getElementById(boxId);
+
+  async function loadSuggestions() {
+    box.innerHTML = "";
+
+    // Current location option
+    const currentDiv = document.createElement("div");
+    currentDiv.className = "suggestion-item current-location";
+    currentDiv.innerHTML = "📍 Use my current location";
+    currentDiv.onclick = () => {
+      if (!navigator.geolocation) return alert("Geolocation not supported");
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          input.value = "Current location";
+          input.dataset.lat = pos.coords.latitude;
+          input.dataset.lng = pos.coords.longitude;
+          input.dataset.isGPS = "true";
+          box.style.display = "none";
+        },
+        () => alert("Please enable location access")
+      );
+    };
+    box.appendChild(currentDiv);
+
+    const q = input.value.trim();
+    if (q.length >= 1 && q !== "Current location") {
+      const res = await fetch(`/api/suggest?q=${q}`);
+      const places = await res.json();
+
+      if (places.length === 0) {
+        const noDiv = document.createElement("div");
+        noDiv.className = "suggestion-item no-result";
+        noDiv.innerText = "❌ No results found";
+        box.appendChild(noDiv);
+      }
+
+      places.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "suggestion-item";
+        div.innerText = p.name;
+        div.onclick = () => {
+          input.value = p.name;
+          input.dataset.lat = p.lat;
+          input.dataset.lng = p.lng;
+          input.dataset.isGPS = "false";
+          box.style.display = "none";
+        };
+        box.appendChild(div);
+      });
+    }
+
+    box.style.display = "block";
+  }
+
+  input.addEventListener("focus", loadSuggestions);
+  input.addEventListener("input", loadSuggestions);
+  document.addEventListener("click", (e) => {
+    if (!box.contains(e.target) && e.target !== input) {
+      box.style.display = "none";
+    }
+  });
+}
+
+setupSuggestions("msearch", "suggestions-search");
+setupSuggestions("fromInput", "suggestions-from");
+setupSuggestions("toInput", "suggestions-to");
+
+// ── SWAP ──────────────────────────────────────────────────────────────────────
+function swapLocations() {
+  const from = document.getElementById("fromInput");
+  const to = document.getElementById("toInput");
+  [from.value, to.value] = [to.value, from.value];
+  [from.dataset.lat, to.dataset.lat] = [to.dataset.lat, from.dataset.lat];
+  [from.dataset.lng, to.dataset.lng] = [to.dataset.lng, from.dataset.lng];
+  [from.dataset.isGPS, to.dataset.isGPS] = [to.dataset.isGPS, from.dataset.isGPS];
+}
+
+// ── CLEAR ─────────────────────────────────────────────────────────────────────
+function clearInput(id) {
+  const input = document.getElementById(id);
+  input.value = "";
+  input.dataset.lat = "";
+  input.dataset.lng = "";
+  input.dataset.isGPS = "";
+}
+
+// ── MENU ──────────────────────────────────────────────────────────────────────
+function openMenu() {
+  document.getElementById("sidebar").classList.add("active");
+  document.getElementById("overlay").classList.add("active");
+}
+function closeMenu() {
+  document.getElementById("sidebar").classList.remove("active");
+  document.getElementById("overlay").classList.remove("active");
+}
+
+// ── PROFILE MENU ──────────────────────────────────────────────────────────────
+let profileOpen = false;
+
+function toggleProfileMenu() {
+  const menu = document.getElementById("profileMenu");
+  profileOpen = !profileOpen;
+  menu.style.display = profileOpen ? "block" : "none";
+}
+
+document.addEventListener("click", (e) => {
+  const menu = document.getElementById("profileMenu");
+  const profile = document.querySelector(".username");
+  if (!profile.contains(e.target) && !menu.contains(e.target)) {
+    menu.style.display = "none";
+    profileOpen = false;
+  }
+});
+
+// ── LOAD PROFILE ──────────────────────────────────────────────────────────────
+async function loadProfileMenu() {
+  try {
+    const res = await fetch("/profile", { credentials: "include" });
+    const data = await res.json();
+    const menu = document.getElementById("profileMenuList");
+    const text = document.getElementById("profileText");
+
+    if (data.success) {
+      text.innerText = data.user.name;
+      menu.innerHTML = `
+        <li onclick="goProfile()">My Profile</li>
+        <li onclick="goUpload()">Upload Video</li>
+        <li onclick="goMyVideos()">My Videos</li>
+        <li class="danger" onclick="logout()">Logout</li>
+      `;
+    } else {
+      // not logged in
+      window.location.href = "login.html";
+    }
+  } catch {
+    window.location.href = "login.html";
+  }
+}
+
+function goProfile() { location.href = "profile.html"; }
+function goUpload() { location.href = "upload.html"; }
+function goMyVideos() { location.href = "myvideos.html"; }
+
+async function logout() {
+  await fetch("/logout", { method: "POST", credentials: "include" });
+  location.href = "login.html";
+}
+
+loadProfileMenu();
+
+// ── SEARCH ROUTE ──────────────────────────────────────────────────────────────
+function searchRoute() {
+  const fromInput = document.getElementById("fromInput");
+  const toInput = document.getElementById("toInput");
+
+  if (!fromInput.value || !toInput.value) {
+    alert("Please select both From and To locations");
+    return;
+  }
+
+  const params = new URLSearchParams();
+
+  // FROM
+  if (fromInput.dataset.isGPS === "true") {
+    params.append("fromLat", fromInput.dataset.lat);
+    params.append("fromLng", fromInput.dataset.lng);
+  } else {
+    params.append("from", fromInput.value);
+  }
+
+  // TO
+  if (toInput.dataset.isGPS === "true") {
+    params.append("toLat", toInput.dataset.lat);
+    params.append("toLng", toInput.dataset.lng);
+  } else {
+    params.append("to", toInput.value);
+  }
+
+  // ✅ Show full page spinner then redirect
+  const loader = document.getElementById("pageLoader");
+  loader.style.display = "flex";
+
+  setTimeout(() => {
+    window.location.href = `video.html?${params.toString()}`;
+  }, 400);
+}
+
+// ── KEYBOARD ENTER TO SEARCH ──────────────────────────────────────────────────
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && document.activeElement.tagName !== "BUTTON") {
+    searchRoute();
+  }
+});
+// ── SINGLE LOCATION SEARCH ─────────────────────────────
+function searchSingleLocation(inputId) {
+  const input = document.getElementById(inputId);
+
+  if (!input.value) {
+    alert("Enter location");
+    return;
+  }
+
+  const params = new URLSearchParams();
+
+  if (input.dataset.isGPS === "true") {
+    params.append("lat", input.dataset.lat);
+    params.append("lng", input.dataset.lng);
+  } else {
+    params.append("place", input.value);
+  }
+
+  window.location.href = `location.html?${params.toString()}`;
+}
+document.getElementById("search").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") searchSingleLocation("search");
+});
+
+document.getElementById("msearch").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") searchSingleLocation("msearch");
+});
+
+</script>
+</body>
+</html>

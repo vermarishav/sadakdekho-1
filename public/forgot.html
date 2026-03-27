@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+    html, body {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background-color: #1f80ff; padding: 10px;
+    }
+
+    .forgotbox {
+      position: relative; /* Important for floating message */
+      
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border: 1px solid rgba(36,39,44,.2);
+    }
+
+    .forgotbox header {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a2e;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .formbox { display: grid; gap: 12px; }
+    .formbox input {
+      width: 100%;
+      height: 44px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(36,39,44,.25);
+      font-size: 14px;
+      outline: none;
+      transition: border .2s;
+    }
+    .formbox input:focus { border-color: #1f80ff; }
+
+    button {
+      height: 44px;
+      background-color: #1f80ff;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+    }
+    button:hover { background: #1a6fd4; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+
+    .back-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #888;
+    }
+    .back-link a { color: #1f80ff; text-decoration: none; font-weight: 500; }
+
+    /* ── Floating message */
+    .msg {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 80%;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.3s, top 0.5s;
+      z-index: 10;
+    }
+    .msg.show { top: -60px; opacity: 1; }
+    .msg.success { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .msg.error { background-color: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  </style>
+</head>
+<body>
+
+<div class="forgotbox">
+  <header>Forgot Password</header>
+  <p class="subtitle">Enter your email and we'll send a reset link</p>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="formbox">
+    <input type="email" id="email" placeholder="Enter your email">
+    <button id="btn" onclick="forgot()">Send Reset Link</button>
+  </div>
+
+  <div class="back-link">
+    Remember your password? <a href="login.html">Login</a>
+  </div>
+</div>
+
+<script>
+const msg = document.getElementById("msg");
+const btn = document.getElementById("btn");
+
+function showMessage(text, type = "success") {
+  msg.innerText = text;
+  msg.className = `msg ${type} show`;
+
+  setTimeout(() => {
+    msg.className = "msg";
+  }, 3000);
+}
+
+async function forgot() {
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    showMessage("Please enter your email address", "error");
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerText = "Sending...";
+
+  try {
+    const res = await fetch("/forgot-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (!data.success) {
+      showMessage(data.message || "Account not found", "error");
+      btn.disabled = false;
+      btn.innerText = "Send Reset Link";
+      return;
+    }
+
+    showMessage("✔ Reset link sent! Check your inbox.", "success");
+    document.getElementById("email").style.display = "none";
+    btn.style.display = "none";
+
+  } catch (err) {
+    showMessage("Something went wrong. Please try again.", "error");
+    btn.disabled = false;
+    btn.innerText = "Send Reset Link";
+  }
+}
+</script>
+</body>
+</html>

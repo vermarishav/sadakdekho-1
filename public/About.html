@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - SadakDekho</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#1f80ff;
+  --bg:#f4f8ff;
+  --text:#1a1a2e;
+  --sub:#6b7a99;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+}
+
+.container{
+  max-width:1000px;
+  
+  
+}
+
+/* BANNER IMAGE */
+.banner-img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 10px;
+  display: block;
+  box-shadow: 0 8px 32px rgba(31,128,255,0.13);
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  margin-bottom:50px;
+}
+.hero h1{
+  font-size:38px;
+  color:var(--primary);
+  font-weight:700;
+}
+.hero p{
+  margin-top:12px;
+  color:var(--sub);
+  font-size:15px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  padding:24px;
+  border-radius:18px;
+  margin-bottom:22px;
+  box-shadow:0 6px 30px rgba(31,128,255,0.08);
+  border:1px solid rgba(31,128,255,0.08);
+}
+
+.card h2{
+  color:var(--primary);
+  margin-bottom:12px;
+}
+
+.card p{
+  font-size:14px;
+  color:#444;
+  margin-bottom:12px;
+}
+
+/* CARD WITH SIDE IMAGE */
+.card-img-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.card-img-row img {
+  width: 220px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.card-img-row .card-text { flex: 1; }
+@media(max-width:600px){
+  .card-img-row { flex-direction: column; }
+  .card-img-row img { width: 100%; height: 200px; }
+}
+
+/* GRID FEATURES */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+.box{
+  background:#eef5ff;
+  padding:15px;
+  border-radius:12px;
+  font-size:13px;
+}
+
+/* WHO CAN BENEFIT GRID */
+.benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+.benefit-box {
+  background: #eef5ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.benefit-box span { font-size: 1.4rem; }
+@media(max-width:500px){ .benefit-grid{grid-template-columns:1fr;} }
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  margin-top:40px;
+  font-size:12px;
+  color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- BANNER IMAGE -->
+  <img
+    src="image\1000073683-Picsart-AiImageEnhancer.jpg.jpeg"
+    alt="SadakDekho – Road Navigation"
+    class="banner-img"
+  />
+
+  <!-- HERO -->
+  
+
+  <!-- INTRO -->
+  <div class="card">
+    <h2>Introduction</h2>
+    <div class="card-img-row">
+      <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=400&q=80" alt="Road navigation" />
+      <div class="card-text">
+        <p>
+          SadakDekho represents a new way of thinking about navigation. In a world where most navigation systems depend heavily on abstract maps, symbolic arrows, and estimated instructions, there remains a gap between what users see on a screen and what they encounter on the road.
+        </p>
+        <p>
+          At its core, SadakDekho is a video-based route guidance platform. It allows users to explore routes through recorded videos synchronized with location-based timestamps.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div class="card">
+    <h2>Our Approach</h2>
+    <p>
+      SadakDekho is built with a user-first philosophy. We believe that navigation should be intuitive, accessible, and easy to understand for everyone. By focusing on visual clarity and simplicity, the platform minimizes confusion and reduces the mental effort required to interpret traditional navigation tools.
+    </p>
+    <p>
+      The platform is not intended to replace existing navigation systems but to enhance them. It provides an additional layer of understanding that complements maps and directions.
+    </p>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="card">
+    <h2>The Problem We Address</h2>
+    <div class="card-img-row">
+      <div class="card-text">
+        <p>
+          Navigation challenges are common, especially in areas where road structures are complex or poorly marked. Users often struggle to match digital directions with real-world surroundings. This can lead to missed turns, confusion, and delays.
+        </p>
+        <p>
+          SadakDekho addresses this issue by introducing visual context — showing the actual route through video so users can better align digital instructions with real-world observations.
+        </p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1545972154-9bb223aac798?w=400&q=80" alt="Road problem" />
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="card">
+    <h2>Core Features</h2>
+    <div class="grid">
+      <div class="box">📍 Video-based route playback</div>
+      <div class="box">⏱ Time-synced location mapping</div>
+      <div class="box">🧭 Start from nearest GPS point</div>
+      <div class="box">📌 Step-by-step visual guidance</div>
+      <div class="box">🎥 Real road experience</div>
+      <div class="box">⚡ Smooth and controlled playback</div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="card">
+    <h2>How It Works</h2>
+    <img src="https://images.unsplash.com/photo-1476973422084-e0fa66ff9456?w=1000&q=80" alt="How SadakDekho works" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+    <p>
+      SadakDekho operates through a structured system of route mapping and video synchronization. Each route video is associated with specific location points mapped to timestamps.
+    </p>
+    <p>
+      If the user provides their current location, the system calculates the nearest point on the route and begins playback from that position. As the video progresses, users receive a continuous visual guide that reflects the journey realistically.
+    </p>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="card">
+    <h2>User Experience & Design Philosophy</h2>
+    <p>
+      The design of SadakDekho emphasizes clarity, responsiveness, and ease of use. The interface is optimized for mobile environments, ensuring that users can access route guidance conveniently while traveling.
+    </p>
+    <p>
+      Minimalist design elements, smooth controls, and intuitive layouts contribute to a distraction-free experience. Every design decision is made with usability in mind.
+    </p>
+  </div>
+
+  <!-- TECHNOLOGY -->
+  <div class="card">
+    <h2>Technology Behind SadakDekho</h2>
+    <p>
+      SadakDekho leverages modern web technologies to deliver a seamless video playback experience. The system integrates location-based logic with video streaming to ensure accurate synchronization between route points and playback time.
+    </p>
+    <p>
+      Efficient data handling, optimized performance, and scalable architecture are key aspects of the platform.
+    </p>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="card">
+    <h2>Who Can Benefit</h2>
+    <div class="benefit-grid">
+      <div class="benefit-box"><span>🧳</span> First-time visitors in unfamiliar areas</div>
+      <div class="benefit-box"><span>🚚</span> Delivery & logistics personnel</div>
+      <div class="benefit-box"><span>🚗</span> Daily commuters seeking clarity</div>
+      <div class="benefit-box"><span>✈️</span> Travelers who prefer visual guidance</div>
+    </div>
+  </div>
+
+  <!-- SAFETY -->
+  <div class="card">
+    <h2>Important Notice</h2>
+    <p>
+      SadakDekho is intended to serve as an informational and assistive platform. While efforts are made to provide useful visual guidance, the platform does not guarantee the accuracy, completeness, or real-time relevance of route data or road conditions.
+    </p>
+    <p>
+      Users are advised to remain attentive, verify surroundings, and follow all applicable traffic laws and regulations. The platform should not be relied upon as the sole source of navigation.
+    </p>
+  </div>
+
+  <!-- PRIVACY -->
+  <div class="card">
+    <h2>Privacy & Data Usage</h2>
+    <p>
+      SadakDekho may utilize user-provided location inputs to enhance functionality. This data is used strictly for operational purposes and is handled responsibly.
+    </p>
+    <p>
+      We are committed to maintaining user trust and ensuring that privacy considerations are respected at every stage of development.
+    </p>
+  </div>
+
+  <!-- FUTURE -->
+  <div class="card">
+    <h2>Looking Ahead</h2>
+    <img href="public\image\1000073683-Picsart-AiImageEnhancer.jpg.jpeg" alt="Future of SadakDekho" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+    <p>
+      The future of SadakDekho involves continuous innovation and expansion. We aim to improve route coverage, enhance video quality, and introduce features that further simplify navigation.
+    </p>
+    <p>
+      Our goal is to make navigation more intuitive, visually engaging, and accessible for everyone.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    © 2026 SadakDekho. All rights reserved.
+  </div>
+
+</div>
+</body>
+</html>

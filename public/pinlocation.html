@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sadakdekho - Video Pins</title>
+<style>
+:root {
+  --primary-color: #E24B4A;
+  --secondary-color: #378ADD;
+  --bg-primary: #0f1a2b;
+  --bg-secondary: #1a2436;
+  --text-primary: #f5f5f5;
+  --text-secondary: #c5c5c5;
+  --border-color: #2c3e50;
+  --border-radius-lg: 12px;
+  --border-radius-md: 6px;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+* { box-sizing: border-box; margin:0; padding:0; font-family: var(--font-sans); }
+body { background: var(--bg-primary); color: var(--text-primary); padding:1rem; }
+.header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+.header .logo { font-weight:600; font-size:22px; color:var(--primary-color); }
+.header .logo span { color: var(--text-primary); font-weight:500; font-size:20px; }
+
+.video-wrapper { position: relative; background: var(--bg-secondary); border-radius: var(--border-radius-lg); overflow: hidden; cursor: crosshair; border:1px solid var(--border-color); padding-top:56.25%; }
+#videoPlaceholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--text-secondary); }
+
+.pin-dot { position:absolute; width:20px; height:20px; border-radius:50%; border:2px solid white; display:flex; align-items:center; justify-content:center; font-size:10px; cursor:pointer; transition: transform 0.15s; z-index:10; }
+.pin-dot:hover { transform: scale(1.2); }
+.pin-tooltip { position:absolute; background:var(--bg-secondary); border:1px solid var(--border-color); padding:6px 8px; border-radius: var(--border-radius-md); font-size:11px; color: var(--text-primary); z-index:20; pointer-events:none; }
+
+.controls-bar { position:absolute; bottom:0; left:0; right:0; background: rgba(20,30,50,0.9); display:flex; align-items:center; gap:10px; padding:6px 10px; }
+.ctrl-btn { background:none; border:none; color:var(--text-primary); font-size:16px; cursor:pointer; }
+.ctrl-btn:hover { color:var(--primary-color); }
+.timeline-wrap { flex:1; position:relative; height:6px; display:flex; align-items:center; }
+.timeline-track { width:100%; height:100%; background: rgba(255,255,255,0.2); border-radius:3px; position:relative; cursor:pointer; }
+.timeline-fill { height:100%; background:var(--primary-color); border-radius:3px; width:0%; }
+.timeline-pins { position:absolute; top:0; left:0; right:0; height:100%; }
+
+.fromt-bar { margin-top:12px; background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--border-radius-lg); padding:10px; display:flex; flex-direction:column; gap:6px; }
+.fromt-bar input { flex:1; padding:6px 8px; border-radius: var(--border-radius-md); border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary); }
+.fromt-bar button { padding:6px 10px; border:none; border-radius: var(--border-radius-md); background:var(--primary-color); color:white; cursor:pointer; }
+.fromt-bar button:hover { background:#c83a39; }
+
+.panel { margin-top:12px; background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--border-radius-lg); padding:10px; }
+.panel h3 { font-size:14px; margin-bottom:6px; }
+.pin-list { max-height:150px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; }
+.pin-item { padding:4px 6px; border-radius: var(--border-radius-md); border:1px solid var(--border-color); display:flex; justify-content:space-between; cursor:pointer; font-size:12px; }
+.pin-item:hover { border-color: var(--primary-color); background:rgba(226,75,74,0.1); }
+
+.toast { position:fixed; bottom:20px; right:20px; background:#222; color:white; padding:8px 12px; border-radius: var(--border-radius-md); font-size:12px; opacity:0; transition:0.3s; pointer-events:none; }
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<div class="header"><div class="logo">Sadak<span>Dekho</span></div></div>
+
+<div class="video-wrapper" id="videoWrap">
+  <div id="videoPlaceholder">Video placeholder (click to add pin)</div>
+  <div id="pinLayer"></div>
+  <div class="controls-bar">
+    <button class="ctrl-btn" id="playBtn" onclick="togglePlay()">▶</button>
+    <div class="timeline-wrap">
+      <div class="timeline-track" id="timelineTrack" onclick="seekTimeline(event)">
+        <div class="timeline-fill" id="timelineFill"></div>
+        <div class="timeline-pins" id="timelinePins"></div>
+      </div>
+    </div>
+    <div class="ctrl-btn" id="pinToggle" onclick="togglePinMode()">📍</div>
+  </div>
+</div>
+
+<div class="fromt-bar">
+  <div style="display:flex; gap:6px;">
+    <input type="number" id="fromInput" placeholder="From sec">
+    <input type="number" id="toInput" placeholder="To sec">
+    <button onclick="loadPins()">Show Pins</button>
+  </div>
+  <div id="rangeDisplay" style="font-size:11px; color:var(--text-secondary);"></div>
+</div>
+
+<div class="panel">
+  <h3>Pins</h3>
+  <div class="pin-list" id="pinList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PIN_COLORS = ['#E24B4A','#378ADD','#1D9E75','#EF9F27','#D4537E','#7F77DD'];
+let pins=[], currentTime=0, totalTime=300, playing=false, pinMode=false, pendingPin=null, colorIdx=0;
+
+function fmtTime(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
+function showToast(msg){const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000);}
+
+function renderPins(){
+  const layer=document.getElementById('pinLayer'); layer.innerHTML='';
+  const tpins=document.getElementById('timelinePins'); tpins.innerHTML='';
+  pins.forEach((p,i)=>{
+    const d=document.createElement('div'); d.className='pin-dot'; d.style.left=p.x+'%'; d.style.top=p.y+'%'; d.style.background=p.color; d.textContent=i+1;
+    d.title=p.label || 'Pin '+(i+1);
+    layer.appendChild(d);
+    const tp=document.createElement('div'); tp.className='tpin'; tp.style.left=(p.t/totalTime*100)+'%'; tp.style.height='100%'; tp.style.background=p.color;
+    tp.title=p.label+' @ '+fmtTime(p.t); tp.onclick=()=>seekTo(p.t);
+    tpins.appendChild(tp);
+  });
+  renderPinList();
+}
+
+function renderPinList(){
+  const list=document.getElementById('pinList'); list.innerHTML='';
+  if(!pins.length){list.innerHTML='<div>No pins</div>'; return;}
+  pins.forEach((p,i)=>{
+    const item=document.createElement('div'); item.className='pin-item'; item.textContent=`${fmtTime(p.t)} - ${p.label || 'Pin '+(i+1)}`; item.onclick=()=>seekTo(p.t);
+    list.appendChild(item);
+  });
+}
+
+function seekTo(t){currentTime=Math.max(0,Math.min(totalTime,t)); updateTimeline();}
+function updateTimeline(){document.getElementById('timelineFill').style.width=(currentTime/totalTime*100)+'%';}
+
+function togglePlay(){playing=!playing; document.getElementById('playBtn').textContent=playing?'⏸':'▶'; if(playing){timer=setInterval(()=>{currentTime=(currentTime+1)%totalTime; updateTimeline();},500);} else clearInterval(timer);}
+
+function togglePinMode(){pinMode=!pinMode; document.getElementById('videoWrap').style.cursor=pinMode?'crosshair':'default'; showToast('Pin mode '+(pinMode?'ON':'OFF'));}
+document.getElementById('videoWrap').addEventListener('click',function(e){
+  if(!pinMode) return;
+  const r=this.getBoundingClientRect();
+  const x=(e.clientX-r.left)/r.width*100;
+  const y=(e.clientY-r.top)/r.height*100;
+  pins.push({id:pins.length+1,x,y,t:currentTime,label:'Pin '+(pins.length+1), color:PIN_COLORS[colorIdx++ % PIN_COLORS.length]});
+  renderPins(); showToast('Pin added at '+fmtTime(currentTime));
+});
+
+function seekTimeline(e){const r=e.currentTarget.getBoundingClientRect(); const pct=(e.clientX-r.left)/r.width; seekTo(Math.round(pct*totalTime));}
+
+async function fetchPinsFromTo(from,to){
+  try{
+    const res=await fetch(`http://localhost:3000/api/pins?videoId=nh33-jsr&from=${from}&to=${to}`);
+    const data=await res.json();
+    pins=data.pins.map((p,i)=>({...p,id:i+1,color:PIN_COLORS[i%PIN_COLORS.length]}));
+    renderPins(); showToast(`${pins.length} pins loaded`);
+  }catch(e){ showToast('Error fetching pins'); }
+}
+
+function loadPins(){
+  const f=parseInt(document.getElementById('fromInput').value);
+  const t=parseInt(document.getElementById('toInput').value);
+  if(isNaN(f)||isNaN(t)||f>=t){showToast('Invalid range'); return;}
+  document.getElementById('rangeDisplay').textContent=`Range: ${fmtTime(f)} → ${fmtTime(t)}`;
+  fetchPinsFromTo(f,t);
+}
+
+renderPins(); updateTimeline();
+</script>
+</body>
+</html>

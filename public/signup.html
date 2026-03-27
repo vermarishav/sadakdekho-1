@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SadakDekho Signup</title>
+<link rel="stylesheet" href="signupstyle.css">
+
+<style>
+
+/* 🔥 FLOATING MESSAGE (NO LAYOUT SHIFT) */
+#floatingMsg{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:white;
+  padding:12px 20px;
+  border-radius:8px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  font-family:Poppins,sans-serif;
+  font-size:13px;
+  opacity:0;
+  transition:.3s;
+  z-index:9999;
+}
+
+#floatingMsg.show{
+  opacity:1;
+}
+
+#floatingMsg.success{ border-left:4px solid #4CAF50; }
+#floatingMsg.error{ border-left:4px solid #e53935; }
+
+
+/* SUCCESS BOX */
+.successBox{
+  text-align:center;
+  margin-top:20px;
+}
+
+.tick{
+  width:60px;height:60px;
+  border-radius:50%;
+  background:#4CAF50;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:30px;
+  animation:pop .4s ease;
+}
+
+@keyframes pop{
+  0%{transform:scale(0);}
+  100%{transform:scale(1);}
+}
+
+.title{font-weight:600;margin-top:10px;}
+.sub{font-size:12px;color:#555;margin-top:5px;}
+
+#resendBtn{
+  margin-top:12px;
+  padding:8px 16px;
+  border:none;
+  background:#1f80ff;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
+#resendBtn:disabled{ background:#ccc; }
+
+#timer{
+  font-size:11px;
+  margin-top:5px;
+  color:#888;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="signupbox">
+
+  <div class="signuptext"><b>Signup</b></div>
+
+  <div class="formbox">
+    <input type="text" id="username" placeholder="Username">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Create password">
+    <input type="password" id="confirmPassword" placeholder="Confirm password">
+  </div>
+
+  <div class="signupbtn">
+    <button onclick="signup()">Signup</button>
+  </div>
+
+  <div class="logingo">
+    Already have an account? <a href="login.html">Login</a>
+  </div>
+
+  <!-- SUCCESS AREA (hidden initially) -->
+  <div id="successArea"></div>
+
+</div>
+
+<!-- 🔥 FLOATING MESSAGE -->
+<div id="floatingMsg"></div>
+
+<script>
+
+// ✅ floating message
+function showMsg(msg,type="success"){
+  const box = document.getElementById("floatingMsg");
+  box.className = type + " show";
+  box.innerHTML = msg;
+
+  setTimeout(()=>{ box.classList.remove("show"); },3000);
+}
+
+
+// ✅ check login
+async function checkAlreadyLoggedIn(){
+  try{
+    const res = await fetch("/profile",{credentials:"include"});
+    const data = await res.json();
+    if(data.success){
+      window.location.replace("index.html");
+    }
+  }catch{}
+}
+checkAlreadyLoggedIn();
+
+
+// ✅ signup
+async function signup(){
+
+  const username = document.getElementById("username").value.trim();
+  const email    = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirm  = document.getElementById("confirmPassword").value;
+
+  if(!username || !email || !password || !confirm){
+    return showMsg("All fields required","error");
+  }
+
+  if(password !== confirm){
+    return showMsg("Passwords do not match","error");
+  }
+
+  if(password.length < 6){
+    return showMsg("Password must be at least 6 characters","error");
+  }
+
+  const btn = document.querySelector(".signupbtn button");
+  btn.disabled = true;
+  btn.innerText = "Please wait...";
+
+  try{
+
+    const res = await fetch("/register",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({name:username,email,password})
+    });
+
+    const data = await res.json();
+
+    if(data.success){
+
+      showMsg("✔ Email sent! Check your inbox","success");
+
+      // 🔥 hide form
+      document.querySelector(".formbox").style.display="none";
+      document.querySelector(".signupbtn").style.display="none";
+      document.querySelector(".logingo").style.display="none";
+
+      // 🔥 show success UI
+      document.getElementById("successArea").innerHTML = `
+        <div class="successBox">
+          <div class="tick">✔</div>
+          <div class="title">Verification Email Sent</div>
+          <div class="sub">
+            Click the link in your email<br>
+            You will be logged in automatically
+          </div>
+
+          <button id="resendBtn" onclick="resendEmail()">Resend Email</button>
+          <div id="timer"></div>
+        </div>
+      `;
+
+      startTimer();
+
+    } else {
+
+      showMsg(data.message || "Signup failed","error");
+
+      
+
+      btn.disabled = false;
+      btn.innerText = "Signup";
+    }
+
+  }catch{
+    showMsg("Server error","error");
+    btn.disabled = false;
+    btn.innerText = "Signup";
+  }
+}
+
+
+// ✅ resend email
+async function resendEmail(){
+
+  const email = document.getElementById("email").value;
+
+  try{
+    const res = await fetch("/resend-verification",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email})
+    });
+
+    const data = await res.json();
+
+    if(data.success){
+      showMsg("✔ Email sent again","success");
+      startTimer();
+    } else {
+      showMsg(data.message || "Failed","error");
+    }
+
+  }catch{
+    showMsg("Server error","error");
+  }
+}
+
+
+// ✅ cooldown timer
+function startTimer(){
+
+  const btn = document.getElementById("resendBtn");
+  const timer = document.getElementById("timer");
+
+  let t = 30;
+  btn.disabled = true;
+
+  const i = setInterval(()=>{
+    t--;
+    timer.innerText = "Resend in "+t+"s";
+
+    if(t<=0){
+      clearInterval(i);
+      btn.disabled = false;
+      timer.innerText = "";
+    }
+  },1000);
+}
+
+
+// ✅ auto redirect after verification
+let redirected = false;
+
+async function checkVerifiedLogin(){
+  if(redirected) return;
+
+  try{
+    const res = await fetch("/profile",{credentials:"include"});
+    const data = await res.json();
+
+    if(data.success){
+      redirected = true;
+
+      showMsg("✔ Account verified! Redirecting...", "success");
+
+      setTimeout(()=>{
+        window.location.replace("index.html");
+      },1000);
+    }
+  }catch{}
+}
+
+// 🔥 check every 3 sec BUT controlled
+const verifyInterval = setInterval(checkVerifiedLogin, 3000);
+
+// 🔥 STOP checking when page hidden (important)
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    clearInterval(verifyInterval);
+  }
+});
+
+</script>
+
+</body>
+</html>
