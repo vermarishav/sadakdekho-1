@@ -156,15 +156,45 @@ function setupSuggestions(inputId, boxId) {
     currentDiv.innerHTML = "📍 Use my current location";
     currentDiv.onclick = () => {
       if (!navigator.geolocation) return alert("Geolocation not supported");
+      
+      input.value = "Fetching location...";
+      box.style.display = "none";
+
       navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          input.value = "Current location";
-          input.dataset.lat = pos.coords.latitude;
-          input.dataset.lng = pos.coords.longitude;
+        async (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          
+          input.dataset.lat = lat;
+          input.dataset.lng = lng;
           input.dataset.isGPS = "true";
-          box.style.display = "none";
+
+          try {
+            // Fetching through Nominatim free API
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+            const data = await res.json();
+            
+            if (data && data.display_name) {
+              // Ye Address ko dikhane ke liye
+              const address = data.address;
+              if (address && (address.city || address.town || address.village) && address.state) {
+                 const city = address.city || address.town || address.village;
+                 input.value = `${city}, ${address.state}`;
+              } else {
+                 input.value = data.display_name;
+              }
+            } else {
+              input.value = "Current location";
+            }
+          } catch (error) {
+            console.error("Failed to fetch location name:", error);
+            input.value = "Current location";
+          }
         },
-        () => alert("Please enable location access")
+        () => {
+          alert("Please enable location access");
+          input.value = "";
+        }
       );
     };
     box.appendChild(currentDiv);
