@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SadakDekho - Forgot Password</title>
-  <!-- Using Tailwind CSS for modern, responsive styling -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -50,7 +49,13 @@
     }
 
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    #forgotForm {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .form-label {
@@ -167,6 +172,7 @@
       color: #16a34a;
       border: 1px solid #bbf7d0;
     }
+
     .fade-in {
       animation: fadeIn 0.3s ease-in-out;
     }
@@ -182,6 +188,7 @@
         transform: translateY(0);
       }
     }
+
     .logo {
       height: 38px;
       display: flex;
@@ -240,12 +247,14 @@
       role="alert">
     </div>
     <form id="forgotForm">
+
       <div class="form-group">
         <label for="email" class="form-label block text-sm font-medium text-gray-700 mb-1">Email Address</label>
         <input type="email" id="email" name="email" required
           class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
           placeholder="Enter your email address" autocomplete="email">
       </div>
+
       <button type="submit" id="submitBtn"
         class="btn-primary w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center">
         <span id="btnText">Send Reset Link</span>
@@ -258,7 +267,6 @@
         Login</a>
     </div>
 
-    <!-- Success Area (Hidden by default) -->
     <div id="successArea" class="hidden mt-6"></div>
 
   </div>
@@ -270,31 +278,37 @@
     const errorMessage = document.getElementById('errorMessage');
     const successMessage = document.getElementById('successMessage');
     const successArea = document.getElementById('successArea');
+
     function showError(message) {
       errorMessage.textContent = message;
       errorMessage.classList.remove('hidden');
       successMessage.classList.add('hidden');
     }
+
     function showSuccess(message) {
       successMessage.textContent = message;
       successMessage.classList.remove('hidden');
       errorMessage.classList.add('hidden');
     }
+
     function hideMessages() {
       errorMessage.classList.add('hidden');
       successMessage.classList.add('hidden');
       errorMessage.textContent = '';
       successMessage.textContent = '';
     }
+
     forgotForm.addEventListener('submit', async function (e) {
       e.preventDefault();
       hideMessages();
 
       const email = document.getElementById("email").value.trim();
+
       if (!email) {
         showError("Please enter your email address.");
         return;
       }
+
       submitBtn.disabled = true;
       btnText.textContent = "Sending...";
 
@@ -307,7 +321,7 @@
 
         const data = await res.json();
 
-        if (data.success) 
+        if (data.success) {
           forgotForm.style.display = "none";
           document.querySelector('.mt-8').style.display = "none";
 
