@@ -272,6 +272,8 @@
   </div>
 
   <script>
+    console.log("Forgot password script loaded");
+    
     const forgotForm = document.getElementById('forgotForm');
     const submitBtn = document.getElementById('submitBtn');
     const btnText = document.getElementById('btnText');
@@ -279,13 +281,21 @@
     const successMessage = document.getElementById('successMessage');
     const successArea = document.getElementById('successArea');
 
+    console.log("Elements found:", {
+      forgotForm: !!forgotForm,
+      submitBtn: !!submitBtn,
+      btnText: !!btnText
+    });
+
     function showError(message) {
+      console.log("Showing error:", message);
       errorMessage.textContent = message;
       errorMessage.classList.remove('hidden');
       successMessage.classList.add('hidden');
     }
 
     function showSuccess(message) {
+      console.log("Showing success:", message);
       successMessage.textContent = message;
       successMessage.classList.remove('hidden');
       errorMessage.classList.add('hidden');
@@ -298,63 +308,113 @@
       successMessage.textContent = '';
     }
 
-    forgotForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      hideMessages();
+    if (forgotForm) {
+      forgotForm.addEventListener('submit', async function (e) {
+        console.log("Form submitted");
+        e.preventDefault();
+        e.stopPropagation();
+        
+        hideMessages();
 
-      const email = document.getElementById("email").value.trim();
+        const email = document.getElementById("email").value.trim();
+        console.log("Email entered:", email);
 
-      if (!email) {
-        showError("Please enter your email address.");
-        return;
-      }
+        if (!email) {
+          showError("Please enter your email address.");
+          return;
+        }
 
-      submitBtn.disabled = true;
-      btnText.textContent = "Sending...";
+        if (!email.includes('@')) {
+          showError("Please enter a valid email address.");
+          return;
+        }
 
-      try {
-        const res = await fetch("/forgot-password", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email })
-        });
+        submitBtn.disabled = true;
+        btnText.textContent = "Sending...";
+        console.log("Making API request to /forgot-password");
 
-        const data = await res.json();
+        try {
+          const res = await fetch("/forgot-password", {
+            method: "POST",
+            headers: { 
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({ email })
+          });
 
-        if (data.success) {
-          forgotForm.style.display = "none";
-          document.querySelector('.mt-8').style.display = "none";
+          console.log("Response status:", res.status);
+          console.log("Response headers:", res.headers);
 
-          successArea.innerHTML = `
-            <div class="text-center">
-              <div class="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
-                ✓
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+
+          const data = await res.json();
+          console.log("Response data:", data);
+
+          if (data.success) {
+            console.log("Success - hiding form and showing success area");
+            forgotForm.style.display = "none";
+            document.querySelector('.mt-8').style.display = "none";
+
+            successArea.innerHTML = `
+              <div class="text-center">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
+                  ✓
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Reset Link Sent!</h3>
+                <p class="text-sm text-gray-600 mb-4">
+                  We've sent a password reset link to your email.<br>
+                  Check your inbox and follow the instructions.
+                </p>
+                <a href="login.html" 
+                  class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
+                  Back to Login
+                </a>
               </div>
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Reset Link Sent!</h3>
-              <p class="text-sm text-gray-600 mb-4">
-                We've sent a password reset link to your email.<br>
-                Check your inbox and follow the instructions.
-              </p>
-              <a href="login.html" 
-                class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
-                Back to Login
-              </a>
-            </div>
-          `;
-          successArea.classList.remove('hidden');
+            `;
+            successArea.classList.remove('hidden');
 
-        } else {
-          showError(data.message || "Account not found. Please check your email address.");
+          } else {
+            console.log("API returned success: false");
+            showError(data.message || "Account not found. Please check your email address.");
+            submitBtn.disabled = false;
+            btnText.textContent = "Send Reset Link";
+          }
+
+        } catch (err) {
+          console.error("Forgot password request failed:", err);
+          showError("Unable to connect to the server. Please check your internet connection.");
           submitBtn.disabled = false;
           btnText.textContent = "Send Reset Link";
         }
+      });
+    } else {
+      console.error("Form not found!");
+    }
 
-      } catch (err) {
-        console.error("Forgot password request failed:", err);
-        showError("Unable to connect to the server. Please check your internet connection.");
-        submitBtn.disabled = false;
-        btnText.textContent = "Send Reset Link";
-      }
+    // Also add event listener to button as backup
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function(e) {
+        console.log("Button clicked");
+        if (forgotForm) {
+          e.preventDefault();
+          forgotForm.dispatchEvent(new Event('submit'));
+        }
+      });
+    }
+
+    // Test API endpoint availability
+    window.addEventListener('load', function() {
+      console.log("Page loaded, testing API endpoint...");
+      fetch("/forgot-password", {
+        method: "OPTIONS"
+      }).then(res => {
+        console.log("API endpoint test - Status:", res.status);
+      }).catch(err => {
+        console.log("API endpoint test failed:", err);
+      });
     });
   </script>
 
