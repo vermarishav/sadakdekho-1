@@ -1,299 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SadakDekho Signup</title>
-<link rel="stylesheet" href="signupstyle.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SadakDekho Signup</title>
+  <!-- Using Tailwind CSS for modern, responsive styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Fallback styles in case Tailwind doesn't load */
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-<style>
+    .signup-container {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 320px;
+      border: 1px solid #e5e7eb;
+    }
 
-/* 🔥 FLOATING MESSAGE (NO LAYOUT SHIFT) */
-#floatingMsg{
-  position:fixed;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:white;
-  padding:12px 20px;
-  border-radius:8px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.15);
-  font-family:Poppins,sans-serif;
-  font-size:13px;
-  opacity:0;
-  transition:.3s;
-  z-index:9999;
-}
+    @media (max-width: 640px) {
+      .signup-container {
+        max-width: 85%;
+        padding: 20px;
+      }
+    }
 
-#floatingMsg.show{
-  opacity:1;
-}
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .signup-container {
+        max-width: 55%;
+      }
+    }
 
-#floatingMsg.success{ border-left:4px solid #4CAF50; }
-#floatingMsg.error{ border-left:4px solid #e53935; }
+    @media (min-width: 1025px) {
+      .signup-container {
+        max-width: 50%;
+        max-width: 350px;
+      }
+    }
 
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-/* SUCCESS BOX */
-.successBox{
-  text-align:center;
-  margin-top:20px;
-}
+    .form-group:last-of-type {
+      margin-bottom: 20px;
+    }
 
-.tick{
-  width:60px;height:60px;
-  border-radius:50%;
-  background:#4CAF50;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:auto;
-  font-size:30px;
-  animation:pop .4s ease;
-}
+    #signupForm {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-@keyframes pop{
-  0%{transform:scale(0);}
-  100%{transform:scale(1);}
-}
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 4px;
+    }
 
-.title{font-weight:600;margin-top:10px;}
-.sub{font-size:12px;color:#555;margin-top:5px;}
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      outline: none;
+      transition: all 0.2s;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
 
-#resendBtn{
-  margin-top:12px;
-  padding:8px 16px;
-  border:none;
-  background:#1f80ff;
-  color:white;
-  border-radius:5px;
-  cursor:pointer;
-}
-#resendBtn:disabled{ background:#ccc; }
+    .form-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
 
-#timer{
-  font-size:11px;
-  margin-top:5px;
-  color:#888;
-}
+    .btn-primary {
+      width: 100%;
+      background-color: #2563eb;
+      color: white;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      min-height: 44px;
+    }
 
-</style>
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .btn-primary span {
+      color: white;
+      font-weight: 600;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-gray-500 {
+      color: #6b7280;
+    }
+
+    .text-blue-600 {
+      color: #2563eb;
+    }
+
+    .text-red-600 {
+      color: #dc2626;
+    }
+
+    .text-green-600 {
+      color: #16a34a;
+    }
+
+    .mb-2 {
+      margin-bottom: 8px;
+    }
+
+    .mb-4 {
+      margin-bottom: 16px;
+    }
+
+    .mb-8 {
+      margin-bottom: 24px;
+    }
+
+    .mt-8 {
+      margin-top: 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .error-message,
+    .success-message {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .error-message {
+      background-color: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .success-message {
+      background-color: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* Custom transition for messages */
+    .fade-in {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Logo styling from map.css */
+    .logo {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-name {
+      display: flex;
+    }
+
+    .f {
+      display: flex;
+      font-size: 26px;
+      font-weight: bold;
+      color: #545454;
+    }
+
+    .s {
+      display: flex;
+      font-size: 26px;
+      font-weight: bold;
+      color: #1f80ff;
+    }
+
+    .t {
+      padding-bottom: 4px;
+      display: flex;
+      font-size: xx-small;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    /* Success animation */
+    .tick {
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen text-gray-800 font-sans p-4">
 
-<div class="signupbox">
+  <!-- Main Signup Container -->
+  <div class="signup-container bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
 
-  <div class="signuptext"><b>Signup</b></div>
-
-  <div class="formbox">
-    <input type="text" id="username" placeholder="Username">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Create password">
-    <input type="password" id="confirmPassword" placeholder="Confirm password">
-  </div>
-
-  <div class="signupbtn">
-    <button onclick="signup()">Signup</button>
-  </div>
-
-  <div class="logingo">
-    Already have an account? <a href="login.html">Login</a>
-  </div>
-
-  <!-- SUCCESS AREA (hidden initially) -->
-  <div id="successArea"></div>
-
-</div>
-
-<!-- 🔥 FLOATING MESSAGE -->
-<div id="floatingMsg"></div>
-
-<script>
-
-// ✅ floating message
-function showMsg(msg,type="success"){
-  const box = document.getElementById("floatingMsg");
-  box.className = type + " show";
-  box.innerHTML = msg;
-
-  setTimeout(()=>{ box.classList.remove("show"); },3000);
-}
-
-
-// ✅ check login
-async function checkAlreadyLoggedIn(){
-  try{
-    const res = await fetch("/profile",{credentials:"include"});
-    const data = await res.json();
-    if(data.success){
-      window.location.replace("index.html");
-    }
-  }catch{}
-}
-checkAlreadyLoggedIn();
-
-
-// ✅ signup
-async function signup(){
-
-  const username = document.getElementById("username").value.trim();
-  const email    = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const confirm  = document.getElementById("confirmPassword").value;
-
-  if(!username || !email || !password || !confirm){
-    return showMsg("All fields required","error");
-  }
-
-  if(password !== confirm){
-    return showMsg("Passwords do not match","error");
-  }
-
-  if(password.length < 6){
-    return showMsg("Password must be at least 6 characters","error");
-  }
-
-  const btn = document.querySelector(".signupbtn button");
-  btn.disabled = true;
-  btn.innerText = "Please wait...";
-
-  try{
-
-    const res = await fetch("/register",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({name:username,email,password})
-    });
-
-    const data = await res.json();
-
-    if(data.success){
-
-      showMsg("✔ Email sent! Check your inbox","success");
-
-      // 🔥 hide form
-      document.querySelector(".formbox").style.display="none";
-      document.querySelector(".signupbtn").style.display="none";
-      document.querySelector(".logingo").style.display="none";
-
-      // 🔥 show success UI
-      document.getElementById("successArea").innerHTML = `
-        <div class="successBox">
-          <div class="tick">✔</div>
-          <div class="title">Verification Email Sent</div>
-          <div class="sub">
-            Click the link in your email<br>
-            You will be logged in automatically
-          </div>
-
-          <button id="resendBtn" onclick="resendEmail()">Resend Email</button>
-          <div id="timer"></div>
+    <div class="text-center mb-8">
+      <div class="logo mb-2">
+        <div class="logo-name">
+          <span class="f">Sadak</span>
+          <span class="s">Dekho</span>
+          <span class="t">.com</span>
         </div>
-      `;
+      </div>
+      <p class="text-gray-500">Create your account to get started.</p>
+    </div>
 
-      startTimer();
+    <!-- Error Message Container (Hidden by default) -->
+    <div id="errorMessage"
+      class="error-message hidden mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-200 fade-in"
+      role="alert">
+      <!-- Error text injected here via JS -->
+    </div>
 
-    } else {
+    <!-- Success Message Container (Hidden by default) -->
+    <div id="successMessage"
+      class="success-message hidden mb-4 p-3 bg-green-50 text-green-600 text-sm rounded-lg border border-green-200 fade-in"
+      role="alert">
+      <!-- Success text injected here via JS -->
+    </div>
 
-      showMsg(data.message || "Signup failed","error");
+    <!-- Signup Form -->
+    <form id="signupForm" class="space-y-5">
 
-      
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username" class="form-label block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+        <input type="text" id="username" name="username" required
+          class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          placeholder="Enter your full name" autocomplete="name">
+      </div>
 
-      btn.disabled = false;
-      btn.innerText = "Signup";
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+        <input type="email" id="email" name="email" required
+          class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          placeholder="you@example.com" autocomplete="email">
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input type="password" id="password" name="password" required
+          class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          placeholder="Create a strong password" autocomplete="new-password">
+        <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long</p>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label block text-sm font-medium text-gray-700 mb-1">Confirm
+          Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required
+          class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          placeholder="Confirm your password" autocomplete="new-password">
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="submitBtn"
+        class="btn-primary w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center">
+        <span id="btnText">Create Account</span>
+      </button>
+
+    </form>
+
+    <!-- Login Redirect -->
+    <div class="mt-8 text-center text-sm text-gray-600">
+      <span>Already have an account?</span>
+      <a href="login.html" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline ml-1">Login</a>
+    </div>
+
+    <!-- Success Area (Hidden by default) -->
+    <div id="successArea" class="hidden mt-6"></div>
+
+  </div>
+
+  <script>
+    // DOM Elements
+    const signupForm = document.getElementById('signupForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const successArea = document.getElementById('successArea');
+
+    // Utility to show inline errors
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.remove('hidden');
+      successMessage.classList.add('hidden');
     }
 
-  }catch{
-    showMsg("Server error","error");
-    btn.disabled = false;
-    btn.innerText = "Signup";
-  }
-}
+    // Utility to show success messages
+    function showSuccess(message) {
+      successMessage.textContent = message;
+      successMessage.classList.remove('hidden');
+      errorMessage.classList.add('hidden');
+    }
 
+    // Utility to hide messages
+    function hideMessages() {
+      errorMessage.classList.add('hidden');
+      successMessage.classList.add('hidden');
+      errorMessage.textContent = '';
+      successMessage.textContent = '';
+    }
 
-// ✅ resend email
-async function resendEmail(){
+    // Check if already logged in
+    async function checkAlreadyLoggedIn() {
+      try {
+        const res = await fetch("/profile", { credentials: "include" });
+        const data = await res.json();
+        if (data.success) {
+          window.location.replace("index.html");
+        }
+      } catch (err) {
+        console.log("User is not currently authenticated.");
+      }
+    }
 
-  const email = document.getElementById("email").value;
+    // Run auth check on load
+    window.addEventListener('DOMContentLoaded', checkAlreadyLoggedIn);
 
-  try{
-    const res = await fetch("/resend-verification",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({email})
+    // Form Submission Handler
+    signupForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      hideMessages();
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      // Validation
+      if (!username || !email || !password || !confirmPassword) {
+        showError("All fields are required.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showError("Passwords do not match.");
+        return;
+      }
+
+      if (password.length < 6) {
+        showError("Password must be at least 6 characters long.");
+        return;
+      }
+
+      // UI Loading State
+      submitBtn.disabled = true;
+      btnText.textContent = "Creating Account...";
+
+      try {
+        const res = await fetch("/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: username, email, password })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          // Hide form and show success UI
+          signupForm.style.display = "none";
+          document.querySelector('.mt-8').style.display = "none";
+
+          successArea.innerHTML = `
+            <div class="text-center">
+              <div class="tick w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
+                ✓
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Verification Email Sent!</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                We've sent a verification link to your email.<br>
+                Click the link to activate your account.
+              </p>
+              <button id="resendBtn" onclick="resendEmail()"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                Resend Email
+              </button>
+              <div id="timer" class="text-xs text-gray-500 mt-2"></div>
+            </div>
+          `;
+          successArea.classList.remove('hidden');
+
+          startTimer();
+          startVerificationCheck();
+
+        } else {
+          showError(data.message || "Signup failed. Please try again.");
+          submitBtn.disabled = false;
+          btnText.textContent = "Create Account";
+        }
+
+      } catch (err) {
+        console.error("Signup request failed:", err);
+        showError("Unable to connect to the server. Please check your internet connection.");
+        submitBtn.disabled = false;
+        btnText.textContent = "Create Account";
+      }
     });
 
-    const data = await res.json();
+    // Resend email function
+    async function resendEmail() {
+      const email = document.getElementById("email").value;
 
-    if(data.success){
-      showMsg("✔ Email sent again","success");
-      startTimer();
-    } else {
-      showMsg(data.message || "Failed","error");
+      try {
+        const res = await fetch("/resend-verification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          showSuccess("Verification email sent again!");
+          startTimer();
+        } else {
+          showError(data.message || "Failed to resend email.");
+        }
+
+      } catch (err) {
+        showError("Server error occurred.");
+      }
     }
 
-  }catch{
-    showMsg("Server error","error");
-  }
-}
+    // Cooldown timer for resend button
+    function startTimer() {
+      const btn = document.getElementById("resendBtn");
+      const timer = document.getElementById("timer");
 
+      let timeLeft = 30;
+      btn.disabled = true;
 
-// ✅ cooldown timer
-function startTimer(){
+      const interval = setInterval(() => {
+        timeLeft--;
+        timer.textContent = `Resend available in ${timeLeft}s`;
 
-  const btn = document.getElementById("resendBtn");
-  const timer = document.getElementById("timer");
-
-  let t = 30;
-  btn.disabled = true;
-
-  const i = setInterval(()=>{
-    t--;
-    timer.innerText = "Resend in "+t+"s";
-
-    if(t<=0){
-      clearInterval(i);
-      btn.disabled = false;
-      timer.innerText = "";
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          btn.disabled = false;
+          timer.textContent = "";
+        }
+      }, 1000);
     }
-  },1000);
-}
 
+    // Check for verification completion
+    let redirected = false;
+    let verifyInterval;
 
-// ✅ auto redirect after verification
-let redirected = false;
+    function startVerificationCheck() {
+      verifyInterval = setInterval(async () => {
+        if (redirected) return;
 
-async function checkVerifiedLogin(){
-  if(redirected) return;
+        try {
+          const res = await fetch("/profile", { credentials: "include" });
+          const data = await res.json();
 
-  try{
-    const res = await fetch("/profile",{credentials:"include"});
-    const data = await res.json();
+          if (data.success) {
+            redirected = true;
+            clearInterval(verifyInterval);
 
-    if(data.success){
-      redirected = true;
+            showSuccess("Account verified! Redirecting...");
 
-      showMsg("✔ Account verified! Redirecting...", "success");
-
-      setTimeout(()=>{
-        window.location.replace("index.html");
-      },1000);
+            setTimeout(() => {
+              window.location.replace("index.html");
+            }, 1000);
+          }
+        } catch (err) {
+          // User not verified yet, continue checking
+        }
+      }, 3000);
     }
-  }catch{}
-}
 
-// 🔥 check every 3 sec BUT controlled
-const verifyInterval = setInterval(checkVerifiedLogin, 3000);
-
-// 🔥 STOP checking when page hidden (important)
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    clearInterval(verifyInterval);
-  }
-});
-
-</script>
+    // Stop checking when page is hidden
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && verifyInterval) {
+        clearInterval(verifyInterval);
+      }
+    });
+  </script>
 
 </body>
+
 </html>
