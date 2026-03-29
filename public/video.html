@@ -20,8 +20,41 @@
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-color: #f9fafb;
       min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── LOGO HEADER ─────────────────────────── */
+    .logo-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      padding: 20px 0;
+    }
+
+    .f {
+      display: flex;
+      font-size: 30px;
+      font-weight: bold;
+      color: #545454;
+    }
+
+    .s {
+      display: flex;
+      font-size: 30px;
+      font-weight: bold;
+      color: #1f80ff;
+    }
+
+    .t {
+      padding-bottom: 5px;
+      display: flex;
+      font-size: xx-small;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
     /* ── GO BACK BUTTON ──────────────────────── */
@@ -82,7 +115,8 @@
       aspect-ratio: 16/9;
       overflow: hidden;
       border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 1px solid #e5e7eb;
     }
 
     video {
@@ -504,19 +538,18 @@
     }
 
     .title-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
+      background: white;
+      border-radius: 16px;
       padding: 20px 24px;
       margin-bottom: 24px;
-      box-shadow: 0 8px 32px rgba(31, 128, 255, .15);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 1px solid #e5e7eb;
     }
 
     .title-card h3 {
       font-size: 20px;
       font-weight: 700;
-      color: #1a1a2e;
+      color: #374151;
       margin-bottom: 6px;
       line-height: 1.3;
     }
@@ -564,17 +597,15 @@
     /* ── TRAIN TRACKER ───────────────────────── */
     .train-track {
       position: relative;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
+      background: white;
+      border-radius: 16px;
       padding: 24px;
-      box-shadow: 0 8px 32px rgba(31, 128, 255, .15);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 1px solid #e5e7eb;
     }
 
     @media (max-width: 768px) {
       .train-track {
-        border-radius: 16px;
         padding: 20px;
       }
     }
@@ -587,7 +618,7 @@
       top: 24px;
       bottom: 24px;
       width: 3px;
-      background: linear-gradient(to bottom, #e5e7eb, #d1d5db);
+      background: #e5e7eb;
       border-radius: 3px;
     }
 
@@ -605,7 +636,7 @@
       left: 32px;
       top: 24px;
       width: 3px;
-      background: linear-gradient(to bottom, #667eea, #764ba2);
+      background: #2563eb;
       border-radius: 3px;
       height: 0;
       transition: height .5s cubic-bezier(.4, 0, .2, 1);
@@ -641,7 +672,7 @@
     }
 
     .stop-row:hover {
-      background: rgba(103, 126, 234, 0.08);
+      background: rgba(37, 99, 235, 0.05);
     }
 
     .stop-row:last-child {
@@ -674,8 +705,8 @@
     }
 
     .stop-row.passed .stop-dot {
-      background: #667eea;
-      border-color: #667eea;
+      background: #2563eb;
+      border-color: #2563eb;
     }
 
     .stop-row.passed .stop-dot::after {
@@ -692,9 +723,9 @@
 
     .stop-row.active .stop-dot {
       background: #fff;
-      border-color: #764ba2;
+      border-color: #1f80ff;
       border-width: 4px;
-      box-shadow: 0 0 0 6px rgba(118, 75, 162, .2), 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 0 0 6px rgba(31, 128, 255, .2), 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .stop-row.active .stop-dot::before {
@@ -702,7 +733,7 @@
       position: absolute;
       inset: -8px;
       border-radius: 50%;
-      border: 2px solid rgba(118, 75, 162, .3);
+      border: 2px solid rgba(31, 128, 255, .3);
       animation: pulse 1.8s ease-out infinite;
     }
 
@@ -732,7 +763,7 @@
     }
 
     .stop-row.active .stop-name {
-      color: #764ba2;
+      color: #1f80ff;
       font-weight: 700;
     }
 
@@ -747,13 +778,13 @@
     }
 
     .stop-row.active .stop-time {
-      color: #764ba2;
-      background: rgba(118, 75, 162, 0.1);
+      color: #1f80ff;
+      background: rgba(31, 128, 255, 0.1);
     }
 
     .stop-row.passed .stop-time {
-      color: #667eea;
-      background: rgba(103, 126, 234, 0.1);
+      color: #2563eb;
+      background: rgba(37, 99, 235, 0.1);
     }
 
     /* ── INSTRUCTION CARD (between stops) ───── */
@@ -780,7 +811,7 @@
       top: 0;
       bottom: 0;
       width: 3px;
-      background: #d4e5ff;
+      background: #e5e7eb;
       z-index: 0;
     }
 
@@ -898,7 +929,7 @@
     #pageLoader {
       position: fixed;
       inset: 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -908,19 +939,19 @@
     }
 
     #pageLoader .spin {
-      width: 56px;
-      height: 56px;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      border-top: 4px solid #fff;
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e8f1ff;
+      border-top: 4px solid #1f80ff;
       border-radius: 50%;
-      animation: spin .8s linear infinite;
+      animation: spin .75s linear infinite;
     }
 
     #pageLoader p {
-      margin-top: 20px;
-      font-size: 16px;
+      margin-top: 16px;
+      font-size: 14px;
       font-weight: 600;
-      color: #fff;
+      color: #1f80ff;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
   </style>
@@ -933,427 +964,434 @@
   </div>
   <div class="content">
     <div class="video-container">
-      <div class="video-wrapper" id="player">
-        <video id="video" muted playsinline></video>
-        <div class="scrim-top"></div>
-        <div class="scrim-bot"></div>
-
-        <!-- Go Back Button Overlay -->
-        <div class="go-back-btn" id="goBackBtn">
-          <svg viewBox="0 0 24 24">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-          </svg>
-        </div>
-
-        <!-- skip zones -->
-        <div class="skip-zone left" id="skipL">
-          <div class="skip-inner">
-            <div class="skip-circle">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
-                <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
-                  font-weight="700">10</text>
-              </svg>
-            </div>
-            <span class="skip-label" id="skipLtxt">-10s</span>
-          </div>
-        </div>
-        <div class="skip-zone right" id="skipR">
-          <div class="skip-inner">
-            <div class="skip-circle">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z" />
-                <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
-                  font-weight="700">10</text>
-              </svg>
-            </div>
-            <span class="skip-label" id="skipRtxt">+10s</span>
-          </div>
-        </div>
-
-        <div class="loader" id="loader"></div>
-
-        <div class="overlay" id="overlay">
-          <div class="center">
-            <div class="play-btn" id="playBtn">
-              <svg id="icon" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </div>
-
-          <div class="settings-popup" id="settingsPopup">
-            <div class="settings-item" id="speedMenuItem">
-              <span class="settings-label">Speed</span>
-              <span class="settings-val" id="speedVal">Normal</span>
-            </div>
-          </div>
-
-          <div class="speed-list" id="speedList">
-            <div class="speed-item" data-s="0.5"><svg class="chk" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>0.5x</div>
-            <div class="speed-item" data-s="0.75"><svg class="chk" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>0.75x</div>
-            <div class="speed-item active" data-s="1"><svg class="chk" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>Normal</div>
-            <div class="speed-item" data-s="1.25"><svg class="chk" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>1.25x</div>
-            <div class="speed-item" data-s="1.5"><svg class="chk" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>1.5x</div>
-            <div class="speed-item" data-s="2"><svg class="chk" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>2x</div>
-          </div>
-
-          <div class="controls">
-            <div class="prog-wrap" id="bar">
-              <div class="prog-track">
-                <div class="prog-buf" id="progBuf"></div>
-                <div class="prog-fill" id="progress"></div>
-                <div class="prog-dot" id="progDot"></div>
-              </div>
-            </div>
-            <div class="ctrl-row">
-              <div class="ctrl-left">
-                <div class="time-txt" id="time">0:00 / 0:00</div>
-              </div>
-              <div class="ctrl-right">
-                <button class="ctrl-btn" id="pipBtn">
-                  <svg viewBox="0 0 24 24">
-                    <path
-                      d="M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14c0 1.1.9 1.99 2 1.99h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z" />
-                  </svg>
-                </button>
-                <button class="ctrl-btn" id="settingsBtn">
-                  <svg viewBox="0 0 24 24">
-                    <path
-                      d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
-                  </svg>
-                </button>
-                <button class="ctrl-btn" id="fs">
-                  <svg id="fsIcon" viewBox="0 0 24 24">
-                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="toast" id="toast"></div>
+      <!-- Logo Header -->
+      <div class="logo-header">
+        <div class="f">Sadak</div>
+        <div class="s">Dekho</div>
+        <div class="t">.com</div>
       </div>
+
+      <div class="video-wrapper" id="player"></div>
+      <video id="video" muted playsinline></video>
+      <div class="scrim-top"></div>
+      <div class="scrim-bot"></div>
+
+      <!-- Go Back Button Overlay -->
+      <div class="go-back-btn" id="goBackBtn">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+        </svg>
+      </div>
+
+      <!-- skip zones -->
+      <div class="skip-zone left" id="skipL">
+        <div class="skip-inner">
+          <div class="skip-circle">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
+              <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
+                font-weight="700">10</text>
+            </svg>
+          </div>
+          <span class="skip-label" id="skipLtxt">-10s</span>
+        </div>
+      </div>
+      <div class="skip-zone right" id="skipR">
+        <div class="skip-inner">
+          <div class="skip-circle">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z" />
+              <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
+                font-weight="700">10</text>
+            </svg>
+          </div>
+          <span class="skip-label" id="skipRtxt">+10s</span>
+        </div>
+      </div>
+
+      <div class="loader" id="loader"></div>
+
+      <div class="overlay" id="overlay">
+        <div class="center">
+          <div class="play-btn" id="playBtn">
+            <svg id="icon" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="settings-popup" id="settingsPopup">
+          <div class="settings-item" id="speedMenuItem">
+            <span class="settings-label">Speed</span>
+            <span class="settings-val" id="speedVal">Normal</span>
+          </div>
+        </div>
+
+        <div class="speed-list" id="speedList">
+          <div class="speed-item" data-s="0.5"><svg class="chk" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>0.5x</div>
+          <div class="speed-item" data-s="0.75"><svg class="chk" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>0.75x</div>
+          <div class="speed-item active" data-s="1"><svg class="chk" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>Normal</div>
+          <div class="speed-item" data-s="1.25"><svg class="chk" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>1.25x</div>
+          <div class="speed-item" data-s="1.5"><svg class="chk" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>1.5x</div>
+          <div class="speed-item" data-s="2"><svg class="chk" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>2x</div>
+        </div>
+
+        <div class="controls">
+          <div class="prog-wrap" id="bar">
+            <div class="prog-track">
+              <div class="prog-buf" id="progBuf"></div>
+              <div class="prog-fill" id="progress"></div>
+              <div class="prog-dot" id="progDot"></div>
+            </div>
+          </div>
+          <div class="ctrl-row">
+            <div class="ctrl-left">
+              <div class="time-txt" id="time">0:00 / 0:00</div>
+            </div>
+            <div class="ctrl-right">
+              <button class="ctrl-btn" id="pipBtn">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14c0 1.1.9 1.99 2 1.99h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z" />
+                </svg>
+              </button>
+              <button class="ctrl-btn" id="settingsBtn">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
+                </svg>
+              </button>
+              <button class="ctrl-btn" id="fs">
+                <svg id="fsIcon" viewBox="0 0 24 24">
+                  <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
     </div>
+  </div>
 
-    <div class="route-content">
-      <div class="title-card">
-        <h3 id="title">Loading…</h3>
-        <p id="info"></p>
-      </div>
-      <div class="stops-head">Route</div>
-      <div class="train-track" id="trainTrack">
-        <div class="rail-fill" id="railFill"></div>
-      </div>
+  <div class="route-content">
+    <div class="title-card">
+      <h3 id="title">Loading…</h3>
+      <p id="info"></p>
     </div>
+    <div class="stops-head">Route</div>
+    <div class="train-track" id="trainTrack">
+      <div class="rail-fill" id="railFill"></div>
+    </div>
+  </div>
 
-    <script>
-      // ── Turn type → SVG path map ─────────────────────────────────────────────────
-      const TURN_ICONS = {
-        left: `<path d="M6 4l-4 4 4 4V9h5v6h2V9h3V7h-3V4H9v3H6V4z" transform="translate(2,0)"/>`,
-        right: `<path d="M18 8l-4-4v3h-3v6h-2V9H6v2h3v6h2V9h5v3z" transform="translate(-2,0)"/>`,
-        slight_left: `<path d="M14.5 3.5l-3 3 2.1 2.1L12 10.2V20h2V10.7l2.6-2.6 1.4 1.4 1-5-5 1z"/>`,
-        slight_right: `<path d="M9.5 3.5l3 3-2.1 2.1L12 10.2V20h-2V10.7L7.4 8.1 6 9.5l-1-5 5 1z"/>`,
-        straight: `<path d="M12 4l-4 4h3v12h2V8h3z"/>`,
-        u_turn: `<path d="M12 4C9.24 4 7 6.24 7 9v7.17l-2.59-2.58L3 15l5 5 5-5-1.41-1.41L9 16.17V9c0-1.65 1.35-3 3-3s3 1.35 3 3v4h2V9c0-2.76-2.24-5-5-5z"/>`,
-        roundabout: `<path d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm-1-9v4l3 3 1.4-1.4-2.4-2.4V9h-2z"/>`,
-        merge: `<path d="M17 8l-4-4-4 4 3-1v3.5l-4.5 4.5H5v2h2.83l5.17-5.17V7l3 1z"/>`,
-        ferry: `<path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.65 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.14.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z"/>`,
-        arrive: `<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>`,
+  <script>
+    // ── Turn type → SVG path map ─────────────────────────────────────────────────
+    const TURN_ICONS = {
+      left: `<path d="M6 4l-4 4 4 4V9h5v6h2V9h3V7h-3V4H9v3H6V4z" transform="translate(2,0)"/>`,
+      right: `<path d="M18 8l-4-4v3h-3v6h-2V9H6v2h3v6h2V9h5v3z" transform="translate(-2,0)"/>`,
+      slight_left: `<path d="M14.5 3.5l-3 3 2.1 2.1L12 10.2V20h2V10.7l2.6-2.6 1.4 1.4 1-5-5 1z"/>`,
+      slight_right: `<path d="M9.5 3.5l3 3-2.1 2.1L12 10.2V20h-2V10.7L7.4 8.1 6 9.5l-1-5 5 1z"/>`,
+      straight: `<path d="M12 4l-4 4h3v12h2V8h3z"/>`,
+      u_turn: `<path d="M12 4C9.24 4 7 6.24 7 9v7.17l-2.59-2.58L3 15l5 5 5-5-1.41-1.41L9 16.17V9c0-1.65 1.35-3 3-3s3 1.35 3 3v4h2V9c0-2.76-2.24-5-5-5z"/>`,
+      roundabout: `<path d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm-1-9v4l3 3 1.4-1.4-2.4-2.4V9h-2z"/>`,
+      merge: `<path d="M17 8l-4-4-4 4 3-1v3.5l-4.5 4.5H5v2h2.83l5.17-5.17V7l3 1z"/>`,
+      ferry: `<path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.65 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.14.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z"/>`,
+      arrive: `<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>`,
+    };
+
+    function turnIcon(type) {
+      const path = TURN_ICONS[type] || TURN_ICONS.straight;
+      return `<svg viewBox="0 0 24 24">${path}</svg>`;
+    }
+
+    // ── DOM refs ──────────────────────────────────────────────────────────────────
+    const video = document.getElementById("video");
+    const overlay = document.getElementById("overlay");
+    const playBtn = document.getElementById("playBtn");
+    const icon = document.getElementById("icon");
+    const progress = document.getElementById("progress");
+    const progDot = document.getElementById("progDot");
+    const progBuf = document.getElementById("progBuf");
+    const bar = document.getElementById("bar");
+    const time = document.getElementById("time");
+    const fs = document.getElementById("fs");
+    const fsIcon = document.getElementById("fsIcon");
+    const player = document.getElementById("player");
+    const loader = document.getElementById("loader");
+    const trainTrack = document.getElementById("trainTrack");
+    const railFill = document.getElementById("railFill");
+    const skipL = document.getElementById("skipL");
+    const skipR = document.getElementById("skipR");
+    const skipLtxt = document.getElementById("skipLtxt");
+    const skipRtxt = document.getElementById("skipRtxt");
+    const pipBtn = document.getElementById("pipBtn");
+    const settingsBtn = document.getElementById("settingsBtn");
+    const settingsPopup = document.getElementById("settingsPopup");
+    const speedList = document.getElementById("speedList");
+    const speedVal = document.getElementById("speedVal");
+    const toast = document.getElementById("toast");
+    const goBackBtn = document.getElementById("goBackBtn");
+
+    // ── NEW: From-To time range variables ─────────
+    let startTime = 0;   // default start
+    let endTime = Infinity; // default end
+
+    let hideTimeout, dragging = false, path = [], lastTap = 0;
+    let stopRows = [], instrCards = [];
+
+
+
+
+    // ── ORIGINAL load() ──────────────────────────────────────────────────────────
+    async function load() {
+      let data;
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const res = await fetch(`/api/video?${params.toString()}`);
+        data = await res.json();
+      } catch (e) {
+        return alert("Failed to fetch route data from API");
+      }
+      if (!data.success) return alert("No route");
+
+      video.src = data.videoUrl;
+      path = data.path;
+
+      // ✅ Set startTime and endTime FIRST
+      startTime = data.startTime ?? path[0].time;
+      endTime = data.endTime ?? path[path.length - 1].time;
+
+      document.getElementById("title").innerText = data.fromPlace + " → " + data.toPlace;
+      document.getElementById("info").innerText = "Stops: " + path.length;
+
+      // ✅ THEN build tracker
+      buildTracker(path);
+
+      // Hide spinner when route is ready
+      const pageLoader = document.getElementById("pageLoader");
+      pageLoader.style.opacity = "0";
+      setTimeout(() => pageLoader.style.display = "none", 400);
+
+      video.onloadeddata = () => {
+        video.currentTime = startTime;
+        video.play().catch(() => { });
       };
 
-      function turnIcon(type) {
-        const path = TURN_ICONS[type] || TURN_ICONS.straight;
-        return `<svg viewBox="0 0 24 24">${path}</svg>`;
-      }
+      video.ontimeupdate = () => {
+        if (!dragging && video.duration) {
+          const pct = (video.currentTime - startTime) / (endTime - startTime);
+          const clampedPct = Math.max(0, Math.min(1, pct));
+          progress.style.width = (clampedPct * 100) + "%";
+          progDot.style.left = (clampedPct * 100) + "%";
 
-      // ── DOM refs ──────────────────────────────────────────────────────────────────
-      const video = document.getElementById("video");
-      const overlay = document.getElementById("overlay");
-      const playBtn = document.getElementById("playBtn");
-      const icon = document.getElementById("icon");
-      const progress = document.getElementById("progress");
-      const progDot = document.getElementById("progDot");
-      const progBuf = document.getElementById("progBuf");
-      const bar = document.getElementById("bar");
-      const time = document.getElementById("time");
-      const fs = document.getElementById("fs");
-      const fsIcon = document.getElementById("fsIcon");
-      const player = document.getElementById("player");
-      const loader = document.getElementById("loader");
-      const trainTrack = document.getElementById("trainTrack");
-      const railFill = document.getElementById("railFill");
-      const skipL = document.getElementById("skipL");
-      const skipR = document.getElementById("skipR");
-      const skipLtxt = document.getElementById("skipLtxt");
-      const skipRtxt = document.getElementById("skipRtxt");
-      const pipBtn = document.getElementById("pipBtn");
-      const settingsBtn = document.getElementById("settingsBtn");
-      const settingsPopup = document.getElementById("settingsPopup");
-      const speedList = document.getElementById("speedList");
-      const speedVal = document.getElementById("speedVal");
-      const toast = document.getElementById("toast");
-      const goBackBtn = document.getElementById("goBackBtn");
-
-      // ── NEW: From-To time range variables ─────────
-      let startTime = 0;   // default start
-      let endTime = Infinity; // default end
-
-      let hideTimeout, dragging = false, path = [], lastTap = 0;
-      let stopRows = [], instrCards = [];
-
-
-
-
-      // ── ORIGINAL load() ──────────────────────────────────────────────────────────
-      async function load() {
-        let data;
-        try {
-          const params = new URLSearchParams(window.location.search);
-          const res = await fetch(`/api/video?${params.toString()}`);
-          data = await res.json();
-        } catch (e) {
-          return alert("Failed to fetch route data from API");
+          if (video.buffered.length) {
+            const buffered = video.buffered.end(video.buffered.length - 1);
+            const bufPct = (buffered - startTime) / (endTime - startTime);
+            progBuf.style.width = (Math.max(0, Math.min(1, bufPct)) * 100) + "%";
+          }
         }
-        if (!data.success) return alert("No route");
 
-        video.src = data.videoUrl;
-        path = data.path;
+        // Clamp video to from-to range
+        if (video.currentTime < startTime) video.currentTime = startTime;
+        if (video.currentTime >= endTime) {
+          video.pause();
+          video.currentTime = endTime;
+        }
 
-        // ✅ Set startTime and endTime FIRST
-        startTime = data.startTime ?? path[0].time;
-        endTime = data.endTime ?? path[path.length - 1].time;
+        const elapsed = video.currentTime - startTime;
+        const total = endTime - startTime;
+        time.innerText = fmt(elapsed) + " / " + fmt(total);
 
-        document.getElementById("title").innerText = data.fromPlace + " → " + data.toPlace;
-        document.getElementById("info").innerText = "Stops: " + path.length;
-
-        // ✅ THEN build tracker
-        buildTracker(path);
-
-        // Hide spinner when route is ready
-        const pageLoader = document.getElementById("pageLoader");
-        pageLoader.style.opacity = "0";
-        setTimeout(() => pageLoader.style.display = "none", 400);
-
-        video.onloadeddata = () => {
-          video.currentTime = startTime;
-          video.play().catch(() => { });
-        };
-
-        video.ontimeupdate = () => {
-          if (!dragging && video.duration) {
-            const pct = (video.currentTime - startTime) / (endTime - startTime);
-            const clampedPct = Math.max(0, Math.min(1, pct));
-            progress.style.width = (clampedPct * 100) + "%";
-            progDot.style.left = (clampedPct * 100) + "%";
-
-            if (video.buffered.length) {
-              const buffered = video.buffered.end(video.buffered.length - 1);
-              const bufPct = (buffered - startTime) / (endTime - startTime);
-              progBuf.style.width = (Math.max(0, Math.min(1, bufPct)) * 100) + "%";
-            }
-          }
-
-          // Clamp video to from-to range
-          if (video.currentTime < startTime) video.currentTime = startTime;
-          if (video.currentTime >= endTime) {
-            video.pause();
-            video.currentTime = endTime;
-          }
-
-          const elapsed = video.currentTime - startTime;
-          const total = endTime - startTime;
-          time.innerText = fmt(elapsed) + " / " + fmt(total);
-
-          updateTracker();
-        };
-      }
-      load();
+        updateTracker();
+      };
+    }
+    load();
 
 
-      // ── BUILD TRACKER WITH INSTRUCTION CARDS ─────────────────────────────────────
-      function buildTracker(path) {
-        // clear old
-        trainTrack.querySelectorAll(".stop-row,.instr-card").forEach(el => el.remove());
-        stopRows = []; instrCards = [];
+    // ── BUILD TRACKER WITH INSTRUCTION CARDS ─────────────────────────────────────
+    function buildTracker(path) {
+      // clear old
+      trainTrack.querySelectorAll(".stop-row,.instr-card").forEach(el => el.remove());
+      stopRows = []; instrCards = [];
 
-        path.forEach((p, i) => {
-          const row = document.createElement("div");
-          row.className = "stop-row" + (i === 0 ? " active" : "");
-          row.dataset.time = p.time;
-          // show time relative to startTime
-          const relTime = p.time - startTime;
-          row.innerHTML = `<div class="stop-dot"></div><span class="stop-name">${p.placeName}</span><span class="stop-time">${fmt(relTime)}</span>`;
-          row.onclick = () => { video.currentTime = p.time; video.play(); };
-          trainTrack.appendChild(row);
-          stopRows.push(row);
-        });
-      }
+      path.forEach((p, i) => {
+        const row = document.createElement("div");
+        row.className = "stop-row" + (i === 0 ? " active" : "");
+        row.dataset.time = p.time;
+        // show time relative to startTime
+        const relTime = p.time - startTime;
+        row.innerHTML = `<div class="stop-dot"></div><span class="stop-name">${p.placeName}</span><span class="stop-time">${fmt(relTime)}</span>`;
+        row.onclick = () => { video.currentTime = p.time; video.play(); };
+        trainTrack.appendChild(row);
+        stopRows.push(row);
+      });
+    }
 
-      // ── UPDATE TRACKER STATE ──────────────────────────────────────────────────────
+    // ── UPDATE TRACKER STATE ──────────────────────────────────────────────────────
 
-      function updateTracker() {
-        if (!stopRows.length) return;
+    function updateTracker() {
+      if (!stopRows.length) return;
 
-        let activeIdx = 0;
-        stopRows.forEach((row, i) => {
-          if (video.currentTime >= Number(row.dataset.time)) activeIdx = i;
-        });
+      let activeIdx = 0;
+      stopRows.forEach((row, i) => {
+        if (video.currentTime >= Number(row.dataset.time)) activeIdx = i;
+      });
 
+      stopRows.forEach((row, i) => {
+        row.classList.remove("active", "passed");
+        if (i < activeIdx) row.classList.add("passed");
+        else if (i === activeIdx) row.classList.add("active");
+      });
+
+      // rail fill based on active stop
+      const pct = stopRows.length > 1 ? (activeIdx / (stopRows.length - 1)) * 100 : 0;
+      railFill.style.height = pct + "%";
+
+      // auto stop at last stop in sliced path
+      const lastStopTime = Number(stopRows[stopRows.length - 1].dataset.time);
+      if (video.currentTime >= lastStopTime) {
+        video.pause();
+        video.currentTime = lastStopTime;
+        // mark all stops passed except last
         stopRows.forEach((row, i) => {
           row.classList.remove("active", "passed");
-          if (i < activeIdx) row.classList.add("passed");
-          else if (i === activeIdx) row.classList.add("active");
+          if (i < stopRows.length - 1) row.classList.add("passed");
+          else row.classList.add("active");
         });
-
-        // rail fill based on active stop
-        const pct = stopRows.length > 1 ? (activeIdx / (stopRows.length - 1)) * 100 : 0;
-        railFill.style.height = pct + "%";
-
-        // auto stop at last stop in sliced path
-        const lastStopTime = Number(stopRows[stopRows.length - 1].dataset.time);
-        if (video.currentTime >= lastStopTime) {
-          video.pause();
-          video.currentTime = lastStopTime;
-          // mark all stops passed except last
-          stopRows.forEach((row, i) => {
-            row.classList.remove("active", "passed");
-            if (i < stopRows.length - 1) row.classList.add("passed");
-            else row.classList.add("active");
-          });
-          railFill.style.height = "100%";
-        }
+        railFill.style.height = "100%";
       }
-      // ── OVERLAY ───────────────────────────────────────────────────────────────────
-      function showOverlay(auto = false) {
-        overlay.classList.add("show");
-        clearTimeout(hideTimeout);
-        if (!video.paused) hideTimeout = setTimeout(() => overlay.classList.remove("show"), auto ? 2000 : 3500);
+    }
+    // ── OVERLAY ───────────────────────────────────────────────────────────────────
+    function showOverlay(auto = false) {
+      overlay.classList.add("show");
+      clearTimeout(hideTimeout);
+      if (!video.paused) hideTimeout = setTimeout(() => overlay.classList.remove("show"), auto ? 2000 : 3500);
+    }
+    function hideOverlay() { overlay.classList.remove("show"); }
+    player.addEventListener("click", (e) => {
+      if (e.target.closest(".controls") || e.target.closest(".play-btn") ||
+        e.target.closest("#fs") || e.target.closest(".settings-popup") ||
+        e.target.closest(".speed-list") || e.target.closest(".go-back-btn")) return;
+      overlay.classList.contains("show") ? hideOverlay() : showOverlay();
+    });
+
+    // ── PLAY / PAUSE ──────────────────────────────────────────────────────────────
+    playBtn.onclick = (e) => { e.stopPropagation(); video.paused ? video.play() : video.pause(); };
+    video.onplay = () => { icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; playBtn.classList.add("playing"); showOverlay(true); };
+    video.onpause = () => { icon.innerHTML = '<path d="M8 5v14l11-7z"/>'; playBtn.classList.remove("playing"); showOverlay(); };
+
+    // ── LOADER ────────────────────────────────────────────────────────────────────
+    video.addEventListener("waiting", () => loader.style.display = "block");
+    video.addEventListener("playing", () => loader.style.display = "none");
+    video.addEventListener("canplay", () => loader.style.display = "none");
+
+    // ── PROGRESS SEEK ─────────────────────────────────────────────────────────────
+    function seek(e) {
+      const rect = bar.getBoundingClientRect();
+      let p = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      // seek within startTime to endTime range only
+      video.currentTime = startTime + p * (endTime - startTime);
+      progress.style.width = (p * 100) + "%";
+      progDot.style.left = (p * 100) + "%";
+    }
+    bar.addEventListener("mousedown", e => { dragging = true; seek(e); e.stopPropagation(); });
+    window.addEventListener("mousemove", e => { if (dragging) seek(e); });
+    window.addEventListener("mouseup", () => dragging = false);
+    bar.addEventListener("touchstart", e => { dragging = true; seek(e.touches[0]); e.stopPropagation(); }, { passive: true });
+    window.addEventListener("touchmove", e => { if (dragging) seek(e.touches[0]); }, { passive: true });
+    window.addEventListener("touchend", () => dragging = false);
+
+    // ── FORMAT ────────────────────────────────────────────────────────────────────
+    function fmt(s) {
+      if (isNaN(s) || s === Infinity) return "0:00";
+      return Math.floor(s / 60) + ":" + Math.floor(s % 60).toString().padStart(2, "0");
+    }
+
+    // ── PiP ───────────────────────────────────────────────────────────────────────
+    pipBtn.onclick = (e) => {
+      e.stopPropagation();
+      if (document.pictureInPictureEnabled) {
+        if (document.pictureInPictureElement) document.exitPictureInPicture();
+        else video.requestPictureInPicture().catch(() => { });
       }
-      function hideOverlay() { overlay.classList.remove("show"); }
-      player.addEventListener("click", (e) => {
-        if (e.target.closest(".controls") || e.target.closest(".play-btn") ||
-          e.target.closest("#fs") || e.target.closest(".settings-popup") ||
-          e.target.closest(".speed-list") || e.target.closest(".go-back-btn")) return;
-        overlay.classList.contains("show") ? hideOverlay() : showOverlay();
-      });
+    };
 
-      // ── PLAY / PAUSE ──────────────────────────────────────────────────────────────
-      playBtn.onclick = (e) => { e.stopPropagation(); video.paused ? video.play() : video.pause(); };
-      video.onplay = () => { icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; playBtn.classList.add("playing"); showOverlay(true); };
-      video.onpause = () => { icon.innerHTML = '<path d="M8 5v14l11-7z"/>'; playBtn.classList.remove("playing"); showOverlay(); };
+    // ── FULLSCREEN ────────────────────────────────────────────────────────────────
+    const FS_IN = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+    const FS_OUT = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+    fs.onclick = (e) => { e.stopPropagation(); if (!document.fullscreenElement) player.requestFullscreen().catch(() => { }); else document.exitFullscreen(); };
+    document.addEventListener("fullscreenchange", () => { fsIcon.innerHTML = document.fullscreenElement ? FS_OUT : FS_IN; showOverlay(); });
 
-      // ── LOADER ────────────────────────────────────────────────────────────────────
-      video.addEventListener("waiting", () => loader.style.display = "block");
-      video.addEventListener("playing", () => loader.style.display = "none");
-      video.addEventListener("canplay", () => loader.style.display = "none");
-
-      // ── PROGRESS SEEK ─────────────────────────────────────────────────────────────
-      function seek(e) {
-        const rect = bar.getBoundingClientRect();
-        let p = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        // seek within startTime to endTime range only
-        video.currentTime = startTime + p * (endTime - startTime);
-        progress.style.width = (p * 100) + "%";
-        progDot.style.left = (p * 100) + "%";
-      }
-      bar.addEventListener("mousedown", e => { dragging = true; seek(e); e.stopPropagation(); });
-      window.addEventListener("mousemove", e => { if (dragging) seek(e); });
-      window.addEventListener("mouseup", () => dragging = false);
-      bar.addEventListener("touchstart", e => { dragging = true; seek(e.touches[0]); e.stopPropagation(); }, { passive: true });
-      window.addEventListener("touchmove", e => { if (dragging) seek(e.touches[0]); }, { passive: true });
-      window.addEventListener("touchend", () => dragging = false);
-
-      // ── FORMAT ────────────────────────────────────────────────────────────────────
-      function fmt(s) {
-        if (isNaN(s) || s === Infinity) return "0:00";
-        return Math.floor(s / 60) + ":" + Math.floor(s % 60).toString().padStart(2, "0");
-      }
-
-      // ── PiP ───────────────────────────────────────────────────────────────────────
-      pipBtn.onclick = (e) => {
+    // ── SETTINGS ──────────────────────────────────────────────────────────────────
+    settingsBtn.onclick = (e) => { e.stopPropagation(); speedList.classList.remove("open"); settingsPopup.classList.toggle("open"); };
+    document.getElementById("speedMenuItem").onclick = (e) => { e.stopPropagation(); settingsPopup.classList.remove("open"); speedList.classList.add("open"); };
+    document.querySelectorAll(".speed-item").forEach(el => {
+      el.onclick = (e) => {
         e.stopPropagation();
-        if (document.pictureInPictureEnabled) {
-          if (document.pictureInPictureElement) document.exitPictureInPicture();
-          else video.requestPictureInPicture().catch(() => { });
-        }
+        const s = parseFloat(el.dataset.s);
+        video.playbackRate = s;
+        document.querySelectorAll(".speed-item").forEach(x => x.classList.remove("active"));
+        el.classList.add("active");
+        speedVal.textContent = s === 1 ? "Normal" : s + "x";
+        speedList.classList.remove("open");
+        showToast("Speed " + (s === 1 ? "Normal" : s + "x"));
+        showOverlay();
       };
+    });
+    player.addEventListener("click", () => { settingsPopup.classList.remove("open"); speedList.classList.remove("open"); });
 
-      // ── FULLSCREEN ────────────────────────────────────────────────────────────────
-      const FS_IN = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
-      const FS_OUT = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
-      fs.onclick = (e) => { e.stopPropagation(); if (!document.fullscreenElement) player.requestFullscreen().catch(() => { }); else document.exitFullscreen(); };
-      document.addEventListener("fullscreenchange", () => { fsIcon.innerHTML = document.fullscreenElement ? FS_OUT : FS_IN; showOverlay(); });
-
-      // ── SETTINGS ──────────────────────────────────────────────────────────────────
-      settingsBtn.onclick = (e) => { e.stopPropagation(); speedList.classList.remove("open"); settingsPopup.classList.toggle("open"); };
-      document.getElementById("speedMenuItem").onclick = (e) => { e.stopPropagation(); settingsPopup.classList.remove("open"); speedList.classList.add("open"); };
-      document.querySelectorAll(".speed-item").forEach(el => {
-        el.onclick = (e) => {
-          e.stopPropagation();
-          const s = parseFloat(el.dataset.s);
-          video.playbackRate = s;
-          document.querySelectorAll(".speed-item").forEach(x => x.classList.remove("active"));
-          el.classList.add("active");
-          speedVal.textContent = s === 1 ? "Normal" : s + "x";
-          speedList.classList.remove("open");
-          showToast("Speed " + (s === 1 ? "Normal" : s + "x"));
-          showOverlay();
-        };
-      });
-      player.addEventListener("click", () => { settingsPopup.classList.remove("open"); speedList.classList.remove("open"); });
-
-      // ── DOUBLE-TAP SKIP ───────────────────────────────────────────────────────────
-      const skipTime = 10;
-      player.addEventListener("touchend", (e) => {
-        const now = Date.now(); const diff = now - lastTap;
-        if (diff < 300 && diff > 0) {
-          const x = e.changedTouches[0].clientX;
-          if (x < player.offsetWidth / 2) { video.currentTime = Math.max(video.currentTime - skipTime, 0); ripple(skipL, skipLtxt, "-10s"); }
-          else { video.currentTime = Math.min(video.currentTime + skipTime, video.duration); ripple(skipR, skipRtxt, "+10s"); }
-          e.stopPropagation();
-        }
-        lastTap = now;
-      });
-      function ripple(zone, txt, label) { txt.textContent = label; zone.classList.add("show"); clearTimeout(zone._t); zone._t = setTimeout(() => zone.classList.remove("show"), 700); }
-
-      // ── KEYBOARD ──────────────────────────────────────────────────────────────────
-      document.addEventListener("keydown", (e) => {
-        if (e.target.tagName === "INPUT") return;
-        switch (e.code) {
-          case "Space": case "KeyK": e.preventDefault(); video.paused ? video.play() : video.pause(); showOverlay(); break;
-          case "ArrowRight": video.currentTime = Math.min(video.currentTime + 5, video.duration); ripple(skipR, skipRtxt, "+5s"); showOverlay(); break;
-          case "ArrowLeft": video.currentTime = Math.max(video.currentTime - 5, 0); ripple(skipL, skipLtxt, "-5s"); showOverlay(); break;
-          case "KeyF": fs.click(); break;
-        }
-      });
-
-      // ── TOAST ─────────────────────────────────────────────────────────────────────
-      let toastTimer;
-      function showToast(msg) { toast.textContent = msg; toast.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 1400); }
-
-      // ── GO BACK BUTTON ────────────────────────────────────────────────────────────
-      goBackBtn.onclick = (e) => {
+    // ── DOUBLE-TAP SKIP ───────────────────────────────────────────────────────────
+    const skipTime = 10;
+    player.addEventListener("touchend", (e) => {
+      const now = Date.now(); const diff = now - lastTap;
+      if (diff < 300 && diff > 0) {
+        const x = e.changedTouches[0].clientX;
+        if (x < player.offsetWidth / 2) { video.currentTime = Math.max(video.currentTime - skipTime, 0); ripple(skipL, skipLtxt, "-10s"); }
+        else { video.currentTime = Math.min(video.currentTime + skipTime, video.duration); ripple(skipR, skipRtxt, "+10s"); }
         e.stopPropagation();
-        // Navigate directly to index without showing loader
-        window.location.replace('/index.html');
-      };
-    </script>
+      }
+      lastTap = now;
+    });
+    function ripple(zone, txt, label) { txt.textContent = label; zone.classList.add("show"); clearTimeout(zone._t); zone._t = setTimeout(() => zone.classList.remove("show"), 700); }
+
+    // ── KEYBOARD ──────────────────────────────────────────────────────────────────
+    document.addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT") return;
+      switch (e.code) {
+        case "Space": case "KeyK": e.preventDefault(); video.paused ? video.play() : video.pause(); showOverlay(); break;
+        case "ArrowRight": video.currentTime = Math.min(video.currentTime + 5, video.duration); ripple(skipR, skipRtxt, "+5s"); showOverlay(); break;
+        case "ArrowLeft": video.currentTime = Math.max(video.currentTime - 5, 0); ripple(skipL, skipLtxt, "-5s"); showOverlay(); break;
+        case "KeyF": fs.click(); break;
+      }
+    });
+
+    // ── TOAST ─────────────────────────────────────────────────────────────────────
+    let toastTimer;
+    function showToast(msg) { toast.textContent = msg; toast.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 1400); }
+
+    // ── GO BACK BUTTON ────────────────────────────────────────────────────────────
+    goBackBtn.onclick = (e) => {
+      e.stopPropagation();
+      // Navigate directly to index without showing loader
+      window.location.replace('/index.html');
+    };
+  </script>
 </body>
 
 </html>
