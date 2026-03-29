@@ -4,481 +4,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SadakDekho - Find Your Perfect Route</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <title>SadakDekho</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
     rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="map.css">
   <link rel="stylesheet" href="media.css">
 
   <style>
-    /* Modern Enhanced Styles */
-    :root {
-      --primary-blue: #1f80ff;
-      --primary-blue-dark: #1a6fd4;
-      --primary-blue-light: #e8f1ff;
-      --text-primary: #1a202c;
-      --text-secondary: #545454;
-      --text-muted: #718096;
-      --border-color: rgba(36, 39, 44, 0.1);
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-      --gradient-primary: linear-gradient(135deg, #1f80ff 0%, #1a6fd4 100%);
-    }
-
-    * {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      min-height: 100vh;
-    }
-
-    /* Enhanced Header */
-    .header {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .logo-name {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-    }
-
-    .f,
-    .s {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    .f {
-      color: var(--text-secondary);
-    }
-
-    .s {
-      color: var(--primary-blue);
-    }
-
-    .t {
-      font-size: 10px;
-      color: var(--text-muted);
-      font-weight: 500;
-      margin-left: 2px;
-      align-self: flex-end;
-      margin-bottom: 2px;
-    }
-
-    /* Enhanced Search Bar */
-    .search-bar {
-      position: relative;
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 25px;
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .search-bar:hover {
-      box-shadow: var(--shadow-lg);
-    }
-
-    .search-bar input {
-      border: none !important;
-      box-shadow: none !important;
-      background: transparent;
-      padding: 12px 20px;
-      font-size: 15px;
-      width: 400px;
-    }
-
-    .search-bar i {
-      background: var(--gradient-primary) !important;
-      border: none !important;
-      box-shadow: none !important;
-      width: 45px !important;
-      height: 45px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      color: white !important;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .search-bar i:hover {
-      transform: scale(1.05);
-    }
-
-    /* Enhanced User Actions */
-    .user-location,
-    .username {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid var(--border-color);
-    }
-
-    .user-location:hover,
-    .username:hover {
-      background: white;
-      box-shadow: var(--shadow-md);
-      transform: translateY(-1px);
-    }
-
-    .user-location i,
-    .username i {
-      font-size: 20px !important;
-      color: var(--primary-blue) !important;
-    }
-
-    .locationtext,
-    .logintext {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    /* Enhanced Main Section */
-    .main {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* Enhanced Mobile Search */
-    .msearch-bar {
-      background: white;
-      border-radius: 25px;
-      box-shadow: var(--shadow-lg);
-      margin-bottom: 30px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .msearch-bar input {
-      border: none !important;
-      box-shadow: none !important;
-      background: transparent;
-      padding: 15px 50px 15px 20px;
-      font-size: 16px;
-    }
-
-    .msearch-bar i {
-      background: var(--gradient-primary) !important;
-      border-radius: 0 25px 25px 0 !important;
-      width: 50px !important;
-      height: 50px !important;
-    }
-
-    /* Enhanced Route Search Card */
-    .from-to-bar {
-      background: white;
-      border-radius: 20px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-color);
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .from-to-bar::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-primary);
-    }
-
-    /* Enhanced Input Styling */
-    .frombar,
-    .tobar {
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .frombar i,
-    .tobar i {
-      background: var(--primary-blue-light) !important;
-      color: var(--primary-blue) !important;
-      border: 1px solid var(--primary-blue) !important;
-      border-radius: 12px 0 0 12px !important;
-      width: 50px !important;
-      height: 50px !important;
-      font-size: 18px !important;
-    }
-
-    .frombar input,
-    .tobar input {
-      border: 1px solid var(--border-color) !important;
-      border-left: none !important;
-      border-radius: 0 12px 12px 0 !important;
-      height: 50px !important;
-      padding: 0 50px 0 15px !important;
-      font-size: 15px;
-      transition: all 0.3s ease;
-    }
-
-    .frombar input:focus,
-    .tobar input:focus {
-      border-color: var(--primary-blue) !important;
-      box-shadow: 0 0 0 3px rgba(31, 128, 255, 0.1) !important;
-    }
-
-    /* Enhanced Swap Button */
-    .swapbutton {
-      display: flex;
-      justify-content: center;
-      margin: 15px 0;
-    }
-
-    .swapbutton button {
-      background: var(--gradient-primary);
-      border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: var(--shadow-md);
-    }
-
-    .swapbutton button:hover {
-      transform: rotate(180deg) scale(1.1);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .swapbutton button i {
-      color: white;
-      font-size: 16px;
-      transform: rotate(90deg);
-    }
-
-    /* Enhanced Search Button */
-    .search-button {
-      margin-top: 25px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .search-button button {
-      background: var(--gradient-primary);
-      color: white;
-      border: none;
-      border-radius: 25px;
-      padding: 15px 40px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .search-button button:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .search-button button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .search-button button:hover::before {
-      left: 100%;
-    }
-
-    /* Enhanced Sidebar */
-    .sidebar {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .sidebar-header {
-      background: var(--gradient-primary);
-      color: white;
-      padding: 20px;
-      margin: -20px -20px 20px -20px;
-    }
-
-    .sidebar-menu li {
-      margin: 8px 0;
-    }
-
-    .sidebar-menu a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .sidebar-menu a:hover {
-      background: var(--primary-blue-light);
-      color: var(--primary-blue);
-      transform: translateX(5px);
-    }
-
-    .sidebar-menu a::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--primary-blue);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .sidebar-menu a:hover::before {
-      opacity: 1;
-    }
-
-    /* Enhanced Profile Menu */
-    .profile-menu {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .profile-menu li {
-      padding: 12px 20px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .profile-menu li:hover {
-      background: var(--primary-blue-light);
-      color: var(--primary-blue);
-    }
-
-    /* Enhanced Suggestions */
-    .suggestion-box {
-      background: white;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-lg);
-      backdrop-filter: blur(10px);
-    }
-
-    .suggestion-item {
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .suggestion-item:hover {
-      background: var(--primary-blue-light);
-      color: var(--primary-blue);
-    }
-
-    .current-location {
-      background: var(--primary-blue-light);
-      color: var(--primary-blue);
-      font-weight: 600;
-    }
-
-    /* Enhanced Page Loader */
+    /* ── PAGE LOADER ─────────────────────────── */
     #pageLoader {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      display: none;
+      /* hidden by default */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity .4s;
     }
 
     #pageLoader .spin {
-      width: 60px;
-      height: 60px;
-      border: 4px solid var(--primary-blue-light);
-      border-top: 4px solid var(--primary-blue);
-      box-shadow: var(--shadow-md);
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e8f1ff;
+      border-top: 4px solid #1f80ff;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
     }
 
     #pageLoader p {
-      color: var(--primary-blue);
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    /* Clear Button Enhancement */
-    .clear-btn,
-    .searchclear-btn {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-top: 16px;
       font-size: 14px;
-      transition: all 0.3s ease;
+      font-weight: 600;
+      color: #1f80ff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    .clear-btn:hover,
-    .searchclear-btn:hover {
-      background: rgba(0, 0, 0, 0.2);
-      transform: scale(1.1);
-    }
-
-    /* Menu Button Enhancement */
-    .menubutton button {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 8px 12px;
-      transition: all 0.3s ease;
-    }
-
-    .menubutton button:hover {
-      background: white;
-      box-shadow: var(--shadow-md);
-      transform: translateY(-1px);
-    }
-
-    .menubutton button i {
-      color: var(--primary-blue) !important;
-    }
-
-    /* Responsive Enhancements */
-    @media (max-width: 768px) {
-      .search-bar input {
-        width: 250px;
-      }
-
-      .from-to-bar {
-        padding: 20px;
-      }
-
-      .f,
-      .s {
-        font-size: 24px;
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
     }
   </style>
@@ -489,7 +59,7 @@
   <!-- ── FULL PAGE LOADER ───────────────────── -->
   <div id="pageLoader">
     <div class="spin"></div>
-    <p>🗺️ Finding your perfect route...</p>
+    <p>Finding your route...</p>
   </div>
 
   <!-- Sidebar Menu -->
@@ -497,21 +67,16 @@
 
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <div class="logo-name">
-        <span class="f">Sadak</span>
-        <span class="s" style="color: white;">Dekho</span>
-        <span class="t" style="color: rgba(255,255,255,0.8);">.com</span>
-      </div>
-      <button onclick="closeMenu()"
-        style="background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 50%; width: 35px; height: 35px; cursor: pointer;">✕</button>
+      <span>SadakDekho</span>
+      <button onclick="closeMenu()">✕</button>
     </div>
     <ul class="sidebar-menu">
-      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-      <li><a href="contact.html"><i class="fas fa-headset"></i> Contact / Support</a></li>
-      <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-      <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
-      <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact / Support</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Terms & Conditions</a></li>
+      <li><a href="settings.html">Settings</a></li>
     </ul>
   </div>
 
@@ -530,16 +95,18 @@
         </div>
       </div>
       <div class="search-bar">
-        <input type="search" id="search" placeholder="🔍 Search your location....">
-        <i class="fa-solid fa-search" onclick="searchSingleLocation('search')"></i>
+        <input type="search" id="search" placeholder="Search your location....">
+        <i class="fa-solid fa-magnifying-glass"
+          style="border:1px solid rgba(36,39,44,.3);height:42px;align-items:center;display:flex;box-shadow:2px 2px 2px rgba(0,0,0,0.3);width:35px;justify-content:center;background-color:#1f80ff;color:white;border-radius:0 20px 20px 0;cursor:pointer;"
+          onclick="searchSingleLocation('search')"></i>
       </div>
       <div class="login-bar">
         <div class="user-location" onclick="window.location.href='pinlocation.html'">
-          <i class="fas fa-crosshairs"></i>
+          <i class="fa-solid fa-location-crosshairs" style="font-size:25px;color:#545454;"></i>
           <span class="locationtext">Current location</span>
         </div>
         <div class="username" onclick="toggleProfileMenu()">
-          <i class="fas fa-user-circle"></i>
+          <i class="fa-solid fa-circle-user" style="font-size:25px;color:#545454;"></i>
           <span class="logintext" id="profileText">Login / Register</span>
         </div>
       </div>
@@ -553,49 +120,42 @@
 
   <div class="main">
     <div class="msearch-bar">
-      <input type="search" id="msearch" placeholder="🌍 Search your location....">
+      <input type="search" id="msearch" placeholder="Search your location....">
       <span class="searchclear-btn" onclick="clearInput('msearch')">×</span>
       <div class="suggestion-box" id="suggestions-search"></div>
-      <i class="fas fa-search" onclick="searchSingleLocation('msearch')"></i>
+      <i class="fa-solid fa-magnifying-glass" onclick="searchSingleLocation('msearch')"></i>
     </div>
 
     <div class="videonav">
       <div class="from-to-bar">
-        <div class="route-header" style="text-align: center; margin-bottom: 25px;">
-          <h2 style="color: var(--text-primary); font-size: 24px; font-weight: 700; margin: 0;">🗺️ Plan Your Route</h2>
-          <p style="color: var(--text-muted); font-size: 14px; margin: 5px 0 0 0;">Find the best path to your
-            destination</p>
-        </div>
-
         <div class="frombar">
-          <i class="fas fa-map-marker-alt"></i>
+          <i class="fa-solid fa-location-dot"
+            style="font-size:20px;background-color:whitesmoke;color:#1f80ff;border-radius:20px 0 0 20px;height:45px;display:flex;border:1px solid rgba(36,39,44,.3);padding:5px;align-items:center;"></i>
           <div class="input-wrapper">
-            <input id="fromInput" type="text" placeholder="🚀 From your starting location....">
+            <input id="fromInput" type="text" placeholder="From your starting location....">
             <span class="clear-btn" onclick="clearInput('fromInput')">×</span>
             <div class="suggestion-box" id="suggestions-from"></div>
           </div>
         </div>
 
         <div class="swapbutton">
-          <button type="button" onclick="swapLocations()" title="Swap locations">
-            <i class="fas fa-exchange-alt"></i>
+          <button type="button" onclick="swapLocations()">
+            <i class="fa-solid fa-right-left"></i>
           </button>
         </div>
 
         <div class="tobar">
-          <i class="fas fa-flag-checkered"></i>
+          <i class="fa-solid fa-location-dot"
+            style="font-size:20px;background-color:whitesmoke;color:#1f80ff;border-radius:20px 0 0 20px;height:45px;display:flex;border:1px solid rgba(36,39,44,.3);padding:5px;align-items:center;"></i>
           <div class="input-wrapper">
-            <input id="toInput" type="text" placeholder="🎯 To your destination location....">
+            <input id="toInput" type="text" placeholder="To your destination location....">
             <span class="clear-btn" onclick="clearInput('toInput')">×</span>
             <div class="suggestion-box" id="suggestions-to"></div>
           </div>
         </div>
 
         <div class="search-button">
-          <button onclick="searchRoute()">
-            <i class="fas fa-route" style="margin-right: 8px;"></i>
-            Find Route
-          </button>
+          <button onclick="searchRoute()">Search</button>
         </div>
       </div>
     </div>
@@ -631,12 +191,12 @@
               input.dataset.isGPS = "true";
 
               try {
-                // Fetch location name using Nominatim free API
+                // Fetching through Nominatim free API
                 const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
                 const data = await res.json();
 
                 if (data && data.display_name) {
-                  // Try to construct a shorter, more readable address if possible
+                  // Ye Address ko dikhane ke liye
                   const address = data.address;
                   if (address && (address.city || address.town || address.village) && address.state) {
                     const city = address.city || address.town || address.village;
@@ -832,29 +392,65 @@
     // ── SINGLE LOCATION SEARCH ─────────────────────────────
     function searchSingleLocation(inputId) {
       const input = document.getElementById(inputId);
+      const query = input.value.trim();
 
-      if (!input.value) {
-        alert("Enter location");
+      if (!query) {
+        alert("Please enter a location to search");
         return;
       }
 
       const params = new URLSearchParams();
 
-      if (input.dataset.isGPS === "true") {
+      // Check if input has GPS coordinates from suggestions
+      if (input.dataset.isGPS === "true" && input.dataset.lat && input.dataset.lng) {
         params.append("lat", input.dataset.lat);
         params.append("lng", input.dataset.lng);
       } else {
-        params.append("place", input.value);
+        // Use the text input directly for search
+        params.append("place", query);
       }
 
-      window.location.href = `location.html?${params.toString()}`;
+      // Show loading spinner
+      const loader = document.getElementById("pageLoader");
+      loader.style.display = "flex";
+
+      setTimeout(() => {
+        window.location.href = `location.html?${params.toString()}`;
+      }, 300);
     }
+
+    // Enhanced search icon click handlers
+    document.addEventListener('DOMContentLoaded', function () {
+      // Header search icon
+      const headerSearchIcon = document.querySelector('.search-bar i');
+      if (headerSearchIcon) {
+        headerSearchIcon.addEventListener('click', function () {
+          searchSingleLocation('search');
+        });
+      }
+
+      // Mobile search icon
+      const mobileSearchIcon = document.querySelector('.msearch-bar i');
+      if (mobileSearchIcon) {
+        mobileSearchIcon.addEventListener('click', function () {
+          searchSingleLocation('msearch');
+        });
+      }
+    });
+
+    // Enhanced keyboard handlers
     document.getElementById("search").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") searchSingleLocation("search");
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchSingleLocation("search");
+      }
     });
 
     document.getElementById("msearch").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") searchSingleLocation("msearch");
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchSingleLocation("msearch");
+      }
     });
 
   </script>
