@@ -4,491 +4,446 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SadakDekho - Reset Password</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>SadakDekho</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="map.css">
+  <link rel="stylesheet" href="media.css">
+
   <style>
-    body {
-      margin: 0;
-      padding: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #f9fafb;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .reset-container {
-      background: white;
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      width: 100%;
-      max-width: 320px;
-      border: 1px solid #e5e7eb;
-    }
-
-    @media (max-width: 640px) {
-      .reset-container {
-        max-width: 85%;
-        padding: 20px;
-      }
-    }
-
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .reset-container {
-        max-width: 55%;
-      }
-    }
-
-    @media (min-width: 1025px) {
-      .reset-container {
-        max-width: 50%;
-        max-width: 350px;
-      }
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    #resetForm {
-      display: flex;
+    /* ── PAGE LOADER ─────────────────────────── */
+    #pageLoader {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      display: none;
+      /* hidden by default */
       flex-direction: column;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 14px;
-      font-weight: 500;
-      color: #374151;
-      margin-bottom: 4px;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 10px 40px 10px 14px;
-      border-radius: 8px;
-      border: 1px solid #d1d5db;
-      outline: none;
-      transition: all 0.2s;
-      box-sizing: border-box;
-      font-size: 14px;
-    }
-
-    .form-input:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    .eye-btn {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #9ca3af;
-      display: flex;
-      align-items: center;
-      padding: 4px;
-    }
-
-    .eye-btn:hover {
-      color: #6b7280;
-    }
-
-    .eye-btn svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .btn-primary {
-      width: 100%;
-      background-color: #2563eb;
-      color: white;
-      font-weight: 600;
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      min-height: 44px;
+      z-index: 9999;
+      transition: opacity .4s;
     }
 
-    .btn-primary:hover {
-      background-color: #1d4ed8;
+    #pageLoader .spin {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e8f1ff;
+      border-top: 4px solid #1f80ff;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
     }
 
-    .btn-primary:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-
-    .btn-primary span {
-      color: white;
-      font-weight: 600;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .text-gray-500 {
-      color: #6b7280;
-    }
-
-    .text-blue-600 {
-      color: #2563eb;
-    }
-
-    .text-red-600 {
-      color: #dc2626;
-    }
-
-    .text-green-600 {
-      color: #16a34a;
-    }
-
-    .mb-2 {
-      margin-bottom: 8px;
-    }
-
-    .mb-4 {
-      margin-bottom: 16px;
-    }
-
-    .mb-8 {
-      margin-bottom: 24px;
-    }
-
-    .mt-8 {
-      margin-top: 24px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .error-message,
-    .success-message {
-      padding: 12px;
-      border-radius: 8px;
+    #pageLoader p {
+      margin-top: 16px;
       font-size: 14px;
-      margin-bottom: 16px;
-    }
-
-    .error-message {
-      background-color: #fef2f2;
-      color: #dc2626;
-      border: 1px solid #fecaca;
-    }
-
-    .success-message {
-      background-color: #f0fdf4;
-      color: #16a34a;
-      border: 1px solid #bbf7d0;
-    }
-
-    .fade-in {
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-5px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .logo {
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-name {
-      display: flex;
-    }
-
-    .f {
-      display: flex;
-      font-size: 26px;
-      font-weight: bold;
-      color: #545454;
-    }
-
-    .s {
-      display: flex;
-      font-size: 26px;
-      font-weight: bold;
+      font-weight: 600;
       color: #1f80ff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    .t {
-      padding-bottom: 4px;
-      display: flex;
-      font-size: xx-small;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .invalid-container {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .invalid-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
 
-<body class="bg-gray-50 flex items-center justify-center min-h-screen text-gray-800 font-sans p-4">
+<body>
 
-  <div class="reset-container bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
+  <!-- ── FULL PAGE LOADER ───────────────────── -->
+  <div id="pageLoader">
+    <div class="spin"></div>
+    <p>Finding your route...</p>
+  </div>
 
-    <div class="text-center mb-8">
-      <div class="logo mb-2">
+  <!-- Sidebar Menu -->
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span>SadakDekho</span>
+      <button onclick="closeMenu()">✕</button>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact / Support</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Terms & Conditions</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <header class="header">
+    <div class="container">
+      <div class="menubutton">
+        <button onclick="openMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+      <div class="logo">
         <div class="logo-name">
           <span class="f">Sadak</span>
           <span class="s">Dekho</span>
           <span class="t">.com</span>
         </div>
       </div>
-      <h2 class="text-xl font-semibold text-gray-800 mb-2">Reset Password</h2>
-      <p class="text-gray-500 text-sm">Enter your new password below</p>
-    </div>
-
-    <div id="errorMessage"
-      class="error-message hidden mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-200 fade-in"
-      role="alert">
-    </div>
-
-    <div id="successMessage"
-      class="success-message hidden mb-4 p-3 bg-green-50 text-green-600 text-sm rounded-lg border border-green-200 fade-in"
-      role="alert">
-    </div>
-
-    <div id="resetContent">
-      <form id="resetForm">
-
-        <div class="form-group">
-          <label for="password" class="form-label block text-sm font-medium text-gray-700 mb-1">New Password</label>
-          <div class="input-wrapper">
-            <input type="password" id="password" name="password" required
-              class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-              placeholder="Enter new password" autocomplete="new-password">
-            <button type="button" class="eye-btn" onclick="togglePassword('password', this)">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-            </button>
-          </div>
-          <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long</p>
+      <div class="search-bar">
+        <input type="search" id="search" placeholder="Search your location....">
+        <i class="fa-solid fa-magnifying-glass"
+          style="border:1px solid rgba(36,39,44,.3);height:42px;align-items:center;display:flex;box-shadow:2px 2px 2px rgba(0,0,0,0.3);width:35px;justify-content:center;background-color:#1f80ff;color:white;border-radius:0 20px 20px 0;cursor:pointer;"
+          onclick="searchSingleLocation('search')"></i>
+      </div>
+      <div class="login-bar">
+        <div class="user-location" onclick="window.location.href='pinlocation.html'">
+          <i class="fa-solid fa-location-crosshairs" style="font-size:25px;color:#545454;"></i>
+          <span class="locationtext">Current location</span>
         </div>
+        <div class="username" onclick="toggleProfileMenu()">
+          <i class="fa-solid fa-circle-user" style="font-size:25px;color:#545454;"></i>
+          <span class="logintext" id="profileText">Login / Register</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-        <div class="form-group">
-          <label for="confirmPassword" class="form-label block text-sm font-medium text-gray-700 mb-1">Confirm
-            Password</label>
+  <!-- Profile Dropdown -->
+  <div class="profile-menu" id="profileMenu">
+    <ul id="profileMenuList"></ul>
+  </div>
+
+  <div class="main">
+    <div class="msearch-bar">
+      <input type="search" id="msearch" placeholder="Search your location....">
+      <span class="searchclear-btn" onclick="clearInput('msearch')">×</span>
+      <div class="suggestion-box" id="suggestions-search"></div>
+      <i class="fa-solid fa-magnifying-glass" onclick="searchSingleLocation('msearch')"></i>
+    </div>
+
+    <div class="videonav">
+      <div class="from-to-bar">
+        <div class="frombar">
+          <i class="fa-solid fa-location-dot"
+            style="font-size:20px;background-color:whitesmoke;color:#1f80ff;border-radius:20px 0 0 20px;height:45px;display:flex;border:1px solid rgba(36,39,44,.3);padding:5px;align-items:center;"></i>
           <div class="input-wrapper">
-            <input type="password" id="confirmPassword" name="confirmPassword" required
-              class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-              placeholder="Confirm new password" autocomplete="new-password">
-            <button type="button" class="eye-btn" onclick="togglePassword('confirmPassword', this)">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-            </button>
+            <input id="fromInput" type="text" placeholder="From your starting location....">
+            <span class="clear-btn" onclick="clearInput('fromInput')">×</span>
+            <div class="suggestion-box" id="suggestions-from"></div>
           </div>
         </div>
 
-        <button type="submit" id="submitBtn"
-          class="btn-primary w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center">
-          <span id="btnText">Reset Password</span>
-        </button>
+        <div class="swapbutton">
+          <button type="button" onclick="swapLocations()">
+            <i class="fa-solid fa-right-left"></i>
+          </button>
+        </div>
 
-      </form>
+        <div class="tobar">
+          <i class="fa-solid fa-location-dot"
+            style="font-size:20px;background-color:whitesmoke;color:#1f80ff;border-radius:20px 0 0 20px;height:45px;display:flex;border:1px solid rgba(36,39,44,.3);padding:5px;align-items:center;"></i>
+          <div class="input-wrapper">
+            <input id="toInput" type="text" placeholder="To your destination location....">
+            <span class="clear-btn" onclick="clearInput('toInput')">×</span>
+            <div class="suggestion-box" id="suggestions-to"></div>
+          </div>
+        </div>
+
+        <div class="search-button">
+          <button onclick="searchRoute()">Search</button>
+        </div>
+      </div>
     </div>
-
-    <div class="mt-8 text-center text-sm text-gray-600">
-      <span>Remember your password?</span>
-      <a href="login.html" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline ml-1">Back to
-        Login</a>
-    </div>
-
-    <div id="successArea" class="hidden mt-6"></div>
-
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
 
-    const resetForm = document.getElementById('resetForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
-    const errorMessage = document.getElementById('errorMessage');
-    const successMessage = document.getElementById('successMessage');
-    const successArea = document.getElementById('successArea');
-    const resetContent = document.getElementById('resetContent');
-
-    if (!token) {
-      resetContent.innerHTML = `
-        <div class="invalid-container">
-          <div class="invalid-icon">⚠️</div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">Invalid Reset Link</h3>
-          <p class="text-sm text-gray-600 mb-4">
-            This reset link is invalid or has expired.<br>
-            Please request a new one.
-          </p>
-          <a href="forgot.html" 
-            class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
-            Request New Link
-          </a>
-        </div>
-      `;
-      document.querySelector('.mt-8').style.display = "none";
-    }
-
-    function showError(message) {
-      errorMessage.textContent = message;
-      errorMessage.classList.remove('hidden');
-      successMessage.classList.add('hidden');
-    }
-
-    function showSuccess(message) {
-      successMessage.textContent = message;
-      successMessage.classList.remove('hidden');
-      errorMessage.classList.add('hidden');
-    }
-
-    function hideMessages() {
-      errorMessage.classList.add('hidden');
-      successMessage.classList.add('hidden');
-      errorMessage.textContent = '';
-      successMessage.textContent = '';
-    }
-
-    const EYE_OPEN = `
-      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-      <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-    `;
-
-    const EYE_CLOSED = `
-      <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.105-3.568M9.88 9.88A3 3 0 0114.12 14.12M3 3l18 18"/>
-    `;
-
-    function togglePassword(inputId, btn) {
+    // ── SUGGESTIONS ───────────────────────────────────────────────────────────────
+    function setupSuggestions(inputId, boxId) {
       const input = document.getElementById(inputId);
-      const svg = btn.querySelector("svg");
+      const box = document.getElementById(boxId);
 
-      if (input.type === "password") {
-        input.type = "text";
-        svg.innerHTML = EYE_CLOSED;
-      } else {
-        input.type = "password";
-        svg.innerHTML = EYE_OPEN;
-      }
-    }
+      async function loadSuggestions() {
+        box.innerHTML = "";
 
-    if (resetForm) {
-      resetForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        hideMessages();
+        // Current location option
+        const currentDiv = document.createElement("div");
+        currentDiv.className = "suggestion-item current-location";
+        currentDiv.innerHTML = "📍 Use my current location";
+        currentDiv.onclick = () => {
+          if (!navigator.geolocation) return alert("Geolocation not supported");
 
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
+          input.value = "Fetching location...";
+          box.style.display = "none";
 
-        if (!password || !confirmPassword) {
-          showError("Please fill in both password fields.");
-          return;
-        }
+          navigator.geolocation.getCurrentPosition(
+            async (pos) => {
+              const lat = pos.coords.latitude;
+              const lng = pos.coords.longitude;
 
-        if (password.length < 6) {
-          showError("Password must be at least 6 characters long.");
-          return;
-        }
+              input.dataset.lat = lat;
+              input.dataset.lng = lng;
+              input.dataset.isGPS = "true";
 
-        if (password !== confirmPassword) {
-          showError("Passwords do not match.");
-          return;
-        }
+              try {
+                // Fetch location name using Nominatim free API for accuracy
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+                const data = await res.json();
 
-        submitBtn.disabled = true;
-        btnText.textContent = "Resetting...";
+                // Always display "Current location" regardless of API response
+                input.value = "Current location";
+              } catch (error) {
+                console.error("Failed to fetch location name:", error);
+                input.value = "Current location";
+              }
+            },
+            () => {
+              alert("Please enable location access");
+              input.value = "";
+            }
+          );
+        };
+        box.appendChild(currentDiv);
 
-        try {
-          const res = await fetch("/reset-password", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token, newPassword: password })
-          });
+        const q = input.value.trim();
+        if (q.length >= 1 && q !== "Current location") {
+          const res = await fetch(`/api/suggest?q=${q}`);
+          const places = await res.json();
 
-          const data = await res.json();
-
-          if (data.success) {
-            resetForm.style.display = "none";
-            document.querySelector('.mt-8').style.display = "none";
-
-            successArea.innerHTML = `
-              <div class="text-center">
-                <div class="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
-                  ✓
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Password Reset Successfully!</h3>
-                <p class="text-sm text-gray-600 mb-4">
-                  Your password has been updated.<br>
-                  You can now login with your new password.
-                </p>
-                <a href="login.html" 
-                  class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
-                  Go to Login
-                </a>
-              </div>
-            `;
-            successArea.classList.remove('hidden');
-
-          } else {
-            showError(data.message || "Reset link has expired. Please request a new one.");
-            submitBtn.disabled = false;
-            btnText.textContent = "Reset Password";
+          if (places.length === 0) {
+            const noDiv = document.createElement("div");
+            noDiv.className = "suggestion-item no-result";
+            noDiv.innerText = "❌ No results found";
+            box.appendChild(noDiv);
           }
 
-        } catch (err) {
-          console.error("Reset password request failed:", err);
-          showError("Unable to connect to the server. Please check your internet connection.");
-          submitBtn.disabled = false;
-          btnText.textContent = "Reset Password";
+          places.forEach(p => {
+            const div = document.createElement("div");
+            div.className = "suggestion-item";
+            div.innerText = p.name;
+            div.onclick = () => {
+              input.value = p.name;
+              input.dataset.lat = p.lat;
+              input.dataset.lng = p.lng;
+              input.dataset.isGPS = "false";
+              box.style.display = "none";
+            };
+            box.appendChild(div);
+          });
+        }
+
+        box.style.display = "block";
+      }
+
+      input.addEventListener("focus", loadSuggestions);
+      input.addEventListener("input", loadSuggestions);
+      document.addEventListener("click", (e) => {
+        if (!box.contains(e.target) && e.target !== input) {
+          box.style.display = "none";
         }
       });
     }
 
-    window.togglePassword = togglePassword;
-  </script>
+    setupSuggestions("msearch", "suggestions-search");
+    setupSuggestions("fromInput", "suggestions-from");
+    setupSuggestions("toInput", "suggestions-to");
 
+    // ── SWAP ──────────────────────────────────────────────────────────────────────
+    function swapLocations() {
+      const from = document.getElementById("fromInput");
+      const to = document.getElementById("toInput");
+      [from.value, to.value] = [to.value, from.value];
+      [from.dataset.lat, to.dataset.lat] = [to.dataset.lat, from.dataset.lat];
+      [from.dataset.lng, to.dataset.lng] = [to.dataset.lng, from.dataset.lng];
+      [from.dataset.isGPS, to.dataset.isGPS] = [to.dataset.isGPS, from.dataset.isGPS];
+    }
+
+    // ── CLEAR ─────────────────────────────────────────────────────────────────────
+    function clearInput(id) {
+      const input = document.getElementById(id);
+      input.value = "";
+      input.dataset.lat = "";
+      input.dataset.lng = "";
+      input.dataset.isGPS = "";
+    }
+
+    // ── MENU ──────────────────────────────────────────────────────────────────────
+    function openMenu() {
+      document.getElementById("sidebar").classList.add("active");
+      document.getElementById("overlay").classList.add("active");
+    }
+    function closeMenu() {
+      document.getElementById("sidebar").classList.remove("active");
+      document.getElementById("overlay").classList.remove("active");
+    }
+
+    // ── PROFILE MENU ──────────────────────────────────────────────────────────────
+    let profileOpen = false;
+
+    function toggleProfileMenu() {
+      const menu = document.getElementById("profileMenu");
+      profileOpen = !profileOpen;
+      menu.style.display = profileOpen ? "block" : "none";
+    }
+
+    document.addEventListener("click", (e) => {
+      const menu = document.getElementById("profileMenu");
+      const profile = document.querySelector(".username");
+      if (!profile.contains(e.target) && !menu.contains(e.target)) {
+        menu.style.display = "none";
+        profileOpen = false;
+      }
+    });
+
+    // ── LOAD PROFILE ──────────────────────────────────────────────────────────────
+    async function loadProfileMenu() {
+      try {
+        const res = await fetch("/profile", { credentials: "include" });
+        const data = await res.json();
+        const menu = document.getElementById("profileMenuList");
+        const text = document.getElementById("profileText");
+
+        if (data.success) {
+          text.innerText = data.user.name;
+          menu.innerHTML = `
+        <li onclick="goProfile()">My Profile</li>
+        <li onclick="goUpload()">Upload Video</li>
+        <li onclick="goMyVideos()">My Videos</li>
+        <li class="danger" onclick="logout()">Logout</li>
+      `;
+        } else {
+          // not logged in
+          window.location.href = "login.html";
+        }
+      } catch {
+        window.location.href = "login.html";
+      }
+    }
+
+    function goProfile() { location.href = "profile.html"; }
+    function goUpload() { location.href = "upload.html"; }
+    function goMyVideos() { location.href = "myvideos.html"; }
+
+    async function logout() {
+      await fetch("/logout", { method: "POST", credentials: "include" });
+      location.href = "login.html";
+    }
+
+    loadProfileMenu();
+
+    // ── SEARCH ROUTE ──────────────────────────────────────────────────────────────
+    function searchRoute() {
+      const fromInput = document.getElementById("fromInput");
+      const toInput = document.getElementById("toInput");
+
+      if (!fromInput.value || !toInput.value) {
+        alert("Please select both From and To locations");
+        return;
+      }
+
+      const params = new URLSearchParams();
+
+      // FROM
+      if (fromInput.dataset.isGPS === "true") {
+        params.append("fromLat", fromInput.dataset.lat);
+        params.append("fromLng", fromInput.dataset.lng);
+      } else {
+        params.append("from", fromInput.value);
+      }
+
+      // TO
+      if (toInput.dataset.isGPS === "true") {
+        params.append("toLat", toInput.dataset.lat);
+        params.append("toLng", toInput.dataset.lng);
+      } else {
+        params.append("to", toInput.value);
+      }
+
+      // ✅ Show full page spinner then redirect
+      const loader = document.getElementById("pageLoader");
+      loader.style.display = "flex";
+
+      setTimeout(() => {
+        window.location.href = `video.html?${params.toString()}`;
+      }, 400);
+    }
+
+    // ── KEYBOARD ENTER TO SEARCH ──────────────────────────────────────────────────
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && document.activeElement.tagName !== "BUTTON") {
+        searchRoute();
+      }
+    });
+    // ── SINGLE LOCATION SEARCH ─────────────────────────────
+    function searchSingleLocation(inputId) {
+      const input = document.getElementById(inputId);
+      const query = input.value.trim();
+
+      if (!query) {
+        alert("Please enter a location to search");
+        return;
+      }
+
+      const params = new URLSearchParams();
+
+      // Check if input has GPS coordinates from suggestions
+      if (input.dataset.isGPS === "true" && input.dataset.lat && input.dataset.lng) {
+        params.append("lat", input.dataset.lat);
+        params.append("lng", input.dataset.lng);
+      } else {
+        // Use the text input directly for search
+        params.append("place", query);
+      }
+
+      // Show loading spinner
+      const loader = document.getElementById("pageLoader");
+      loader.style.display = "flex";
+
+      setTimeout(() => {
+        window.location.href = `location.html?${params.toString()}`;
+      }, 300);
+    }
+
+    // Enhanced search icon click handlers
+    document.addEventListener('DOMContentLoaded', function () {
+      // Header search icon
+      const headerSearchIcon = document.querySelector('.search-bar i');
+      if (headerSearchIcon) {
+        headerSearchIcon.addEventListener('click', function () {
+          searchSingleLocation('search');
+        });
+      }
+
+      // Mobile search icon
+      const mobileSearchIcon = document.querySelector('.msearch-bar i');
+      if (mobileSearchIcon) {
+        mobileSearchIcon.addEventListener('click', function () {
+          searchSingleLocation('msearch');
+        });
+      }
+    });
+
+    // Enhanced keyboard handlers
+    document.getElementById("search").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchSingleLocation("search");
+      }
+    });
+
+    document.getElementById("msearch").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchSingleLocation("msearch");
+      }
+    });
+
+  </script>
 </body>
 
 </html>
