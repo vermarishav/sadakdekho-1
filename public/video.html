@@ -614,7 +614,7 @@
     .train-track::before {
       content: "";
       position: absolute;
-      left: 32px;
+      left: 44px;
       top: 24px;
       bottom: 24px;
       width: 3px;
@@ -624,7 +624,7 @@
 
     @media (max-width: 768px) {
       .train-track::before {
-        left: 28px;
+        left: 40px;
         top: 20px;
         bottom: 20px;
       }
@@ -633,7 +633,7 @@
     /* filled rail */
     .rail-fill {
       position: absolute;
-      left: 32px;
+      left: 44px;
       top: 24px;
       width: 3px;
       background: #2563eb;
@@ -645,7 +645,7 @@
 
     @media (max-width: 768px) {
       .rail-fill {
-        left: 28px;
+        left: 40px;
         top: 20px;
       }
     }
@@ -657,16 +657,16 @@
       align-items: center;
       gap: 16px;
       cursor: pointer;
-      padding: 12px;
+      padding: 12px 0;
       margin: 4px 0;
       transition: all .25s;
       border-radius: 12px;
-      padding-left: 60px;
+      padding-left: 72px;
     }
 
     @media (max-width: 768px) {
       .stop-row {
-        padding-left: 56px;
+        padding-left: 68px;
         gap: 12px;
       }
     }
@@ -682,7 +682,7 @@
     /* dot */
     .stop-dot {
       position: absolute;
-      left: 24px;
+      left: 36px;
       top: 50%;
       transform: translateY(-50%);
       width: 20px;
@@ -698,7 +698,7 @@
 
     @media (max-width: 768px) {
       .stop-dot {
-        left: 20px;
+        left: 32px;
         width: 18px;
         height: 18px;
       }
@@ -794,12 +794,12 @@
       display: flex;
       align-items: stretch;
       gap: 0;
-      padding-left: 60px;
+      padding-left: 72px;
     }
 
     @media (max-width: 768px) {
       .instr-card {
-        padding-left: 56px;
+        padding-left: 68px;
       }
     }
 
@@ -807,7 +807,7 @@
     .instr-card::before {
       content: "";
       position: absolute;
-      left: 32px;
+      left: 44px;
       top: 0;
       bottom: 0;
       width: 3px;
@@ -817,7 +817,7 @@
 
     @media (max-width: 768px) {
       .instr-card::before {
-        left: 28px;
+        left: 40px;
       }
     }
 
@@ -971,121 +971,122 @@
         <div class="t">.com</div>
       </div>
 
-      <div class="video-wrapper" id="player"></div>
-      <video id="video" muted playsinline></video>
-      <div class="scrim-top"></div>
-      <div class="scrim-bot"></div>
+      <div class="video-wrapper" id="player">
+        <video id="video" muted playsinline></video>
+        <div class="scrim-top"></div>
+        <div class="scrim-bot"></div>
 
-      <!-- Go Back Button Overlay -->
-      <div class="go-back-btn" id="goBackBtn">
-        <svg viewBox="0 0 24 24">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-        </svg>
-      </div>
-
-      <!-- skip zones -->
-      <div class="skip-zone left" id="skipL">
-        <div class="skip-inner">
-          <div class="skip-circle">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
-              <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
-                font-weight="700">10</text>
-            </svg>
-          </div>
-          <span class="skip-label" id="skipLtxt">-10s</span>
+        <!-- Go Back Button Overlay -->
+        <div class="go-back-btn" id="goBackBtn">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+          </svg>
         </div>
-      </div>
-      <div class="skip-zone right" id="skipR">
-        <div class="skip-inner">
-          <div class="skip-circle">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z" />
-              <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
-                font-weight="700">10</text>
-            </svg>
+
+        <!-- skip zones -->
+        <div class="skip-zone left" id="skipL">
+          <div class="skip-inner">
+            <div class="skip-circle">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
+                <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
+                  font-weight="700">10</text>
+              </svg>
+            </div>
+            <span class="skip-label" id="skipLtxt">-10s</span>
           </div>
-          <span class="skip-label" id="skipRtxt">+10s</span>
         </div>
-      </div>
-
-      <div class="loader" id="loader"></div>
-
-      <div class="overlay" id="overlay">
-        <div class="center">
-          <div class="play-btn" id="playBtn">
-            <svg id="icon" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+        <div class="skip-zone right" id="skipR">
+          <div class="skip-inner">
+            <div class="skip-circle">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z" />
+                <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="white" font-family="sans-serif"
+                  font-weight="700">10</text>
+              </svg>
+            </div>
+            <span class="skip-label" id="skipRtxt">+10s</span>
           </div>
         </div>
 
-        <div class="settings-popup" id="settingsPopup">
-          <div class="settings-item" id="speedMenuItem">
-            <span class="settings-label">Speed</span>
-            <span class="settings-val" id="speedVal">Normal</span>
-          </div>
-        </div>
+        <div class="loader" id="loader"></div>
 
-        <div class="speed-list" id="speedList">
-          <div class="speed-item" data-s="0.5"><svg class="chk" viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>0.5x</div>
-          <div class="speed-item" data-s="0.75"><svg class="chk" viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>0.75x</div>
-          <div class="speed-item active" data-s="1"><svg class="chk" viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>Normal</div>
-          <div class="speed-item" data-s="1.25"><svg class="chk" viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>1.25x</div>
-          <div class="speed-item" data-s="1.5"><svg class="chk" viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>1.5x</div>
-          <div class="speed-item" data-s="2"><svg class="chk" viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>2x</div>
-        </div>
-
-        <div class="controls">
-          <div class="prog-wrap" id="bar">
-            <div class="prog-track">
-              <div class="prog-buf" id="progBuf"></div>
-              <div class="prog-fill" id="progress"></div>
-              <div class="prog-dot" id="progDot"></div>
+        <div class="overlay" id="overlay">
+          <div class="center">
+            <div class="play-btn" id="playBtn">
+              <svg id="icon" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
             </div>
           </div>
-          <div class="ctrl-row">
-            <div class="ctrl-left">
-              <div class="time-txt" id="time">0:00 / 0:00</div>
+
+          <div class="settings-popup" id="settingsPopup">
+            <div class="settings-item" id="speedMenuItem">
+              <span class="settings-label">Speed</span>
+              <span class="settings-val" id="speedVal">Normal</span>
             </div>
-            <div class="ctrl-right">
-              <button class="ctrl-btn" id="pipBtn">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14c0 1.1.9 1.99 2 1.99h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z" />
-                </svg>
-              </button>
-              <button class="ctrl-btn" id="settingsBtn">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
-                </svg>
-              </button>
-              <button class="ctrl-btn" id="fs">
-                <svg id="fsIcon" viewBox="0 0 24 24">
-                  <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
-                </svg>
-              </button>
+          </div>
+
+          <div class="speed-list" id="speedList">
+            <div class="speed-item" data-s="0.5"><svg class="chk" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>0.5x</div>
+            <div class="speed-item" data-s="0.75"><svg class="chk" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>0.75x</div>
+            <div class="speed-item active" data-s="1"><svg class="chk" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>Normal</div>
+            <div class="speed-item" data-s="1.25"><svg class="chk" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>1.25x</div>
+            <div class="speed-item" data-s="1.5"><svg class="chk" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>1.5x</div>
+            <div class="speed-item" data-s="2"><svg class="chk" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>2x</div>
+          </div>
+
+          <div class="controls">
+            <div class="prog-wrap" id="bar">
+              <div class="prog-track">
+                <div class="prog-buf" id="progBuf"></div>
+                <div class="prog-fill" id="progress"></div>
+                <div class="prog-dot" id="progDot"></div>
+              </div>
+            </div>
+            <div class="ctrl-row">
+              <div class="ctrl-left">
+                <div class="time-txt" id="time">0:00 / 0:00</div>
+              </div>
+              <div class="ctrl-right">
+                <button class="ctrl-btn" id="pipBtn">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14c0 1.1.9 1.99 2 1.99h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z" />
+                  </svg>
+                </button>
+                <button class="ctrl-btn" id="settingsBtn">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
+                  </svg>
+                </button>
+                <button class="ctrl-btn" id="fs">
+                  <svg id="fsIcon" viewBox="0 0 24 24">
+                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="toast" id="toast"></div>
+        <div class="toast" id="toast"></div>
+      </div>
     </div>
   </div>
 
